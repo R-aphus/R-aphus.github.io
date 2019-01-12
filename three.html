@@ -51,7 +51,7 @@
                 }
                 var dest = translateGeoCoords(latitude, longitude, alaltitude);
                 var here = translateGeoCoords(position.coords.latitude, position.coords.longitude, position.coords.altitude);
-                cone.rotation.z = Math.atan((dest.z - here.z) / (dest.x - here.x));
+                cone.rotation.z = heading - Math.atan((dest.z - here.z) / (dest.x - here.x));
                 document.getElementById("result").innerHTML = (dest.x - here.x) + "<br>" + (dest.y - here.y) + "<br>" + (dest.z - here.z);
             },
             function(error) {
