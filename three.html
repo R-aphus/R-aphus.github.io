@@ -39,14 +39,18 @@
           cone.rotation.z  = heading * Math.PI / 180;
           requestAnimationFrame(tick);
         }
-        var latitude, longitude, alaltitude
+        var latitude = 0;
+        var longitude = 0;
+        var alaltitude = 0;
         navigator.geolocation.watchPosition(
             function(position) {
-                latitude = position.coords.latitude;
-                longitude = position.coords.longitude;
-                alaltitude = position.coords.altitude;
-                var dest = translateGeoCoords(35.969791731, 139.5865410453, 15.01114654);
-                var here = translateGeoCoords(latitude, longitude, alaltitude);
+                if (latitude == 0 && longitude == 0 && alaltitude == 0) {
+                    latitude = position.coords.latitude;
+                    longitude = position.coords.longitude;
+                    alaltitude = position.coords.altitude;
+                }
+                var dest = translateGeoCoords(latitude, longitude, alaltitude);
+                var here = translateGeoCoords(position.coords.latitude, position.coords.longitude, position.coords.altitude);
                 document.getElementById("result").innerHTML = (dest.x - here.x) + "<br>" + (dest.y - here.y) + "<br>" + (dest.z - here.z);
             },
             function(error) {
