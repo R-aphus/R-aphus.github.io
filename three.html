@@ -37,11 +37,13 @@
         // レンダリング
             renderer.render(scene, camera);
 //            cone.rotation.z  = heading * Math.PI / 180;
+            cone.rotation.z = heading - Math.atan((dest.z - here.z) / (dest.x - here.x));
             requestAnimationFrame(tick);
         }
         var latitude = 0;
         var longitude = 0;
         var alaltitude = 0;
+        var dest, here;
         navigator.geolocation.watchPosition(
             function(position) {
                 if (latitude == 0 && longitude == 0 && alaltitude == 0) {
@@ -49,9 +51,8 @@
                     longitude = position.coords.longitude;
                     alaltitude = position.coords.altitude;
                 }
-                var dest = translateGeoCoords(latitude, longitude, alaltitude);
-                var here = translateGeoCoords(position.coords.latitude, position.coords.longitude, position.coords.altitude);
-                cone.rotation.z = heading - Math.atan((dest.z - here.z) / (dest.x - here.x));
+                dest = translateGeoCoords(latitude, longitude, alaltitude);
+                here = translateGeoCoords(position.coords.latitude, position.coords.longitude, position.coords.altitude);
                 document.getElementById("result").innerHTML = (dest.x - here.x) + "<br>" + (dest.y - here.y) + "<br>" + (dest.z - here.z);
             },
             function(error) {
