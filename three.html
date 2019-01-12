@@ -63,7 +63,7 @@
                 dest = translateGeoCoords(latitude, longitude, alaltitude);
                 here = translateGeoCoords(position.coords.latitude, position.coords.longitude, position.coords.altitude);
                 delta = new THREE.Vector3(dest.x - here.x, dest.y - here.y, dest.z - here.z);
-                document.getElementById("result").innerHTML = delta.x + "<br>" + delta.y + "<br>" + delta.z + "<br><br>" + beta + "<br>" + gamma;
+                document.getElementById("result").innerHTML = delta.x + "<br>" + delta.y + "<br>" + delta.z;
             },
             function(error) {
                 alert(error.code);
@@ -73,6 +73,7 @@
             heading = event.webkitCompassHeading;
             beta = event.beta;
             gamma = event.gamma;
+            document.getElementById("rotation").innerHTML = "<br>" + beta + "<br>" + gamma;
         });
 
         function translateGeoCoords(latitude, longitude, height) {
@@ -92,5 +93,6 @@
   <body>
     <canvas id="myCanvas"></canvas>
     <div id="result"></div>
+    <div id="rotation"></div>
   </body>
 </html>
