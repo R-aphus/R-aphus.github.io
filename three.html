@@ -35,7 +35,7 @@
         var alaltitude = 0;
         var dest = new THREE.Vector3(0,0,0);
         var here = new THREE.Vector3(0,0,0);
-        var delta = new THREE.Vector3(0,0,0);
+        var delta = new THREE.Vector3(1,1,1);
         var heading = 0;
         var beta = 0;
         var gamma = 0;
@@ -52,7 +52,7 @@
         }
         navigator.geolocation.watchPosition(
             function(position) {
-                if (latitude == 0 && longitude == 0 && alaltitude == 0) {
+/*                if (latitude == 0 && longitude == 0 && alaltitude == 0) {
                     latitude = position.coords.latitude;
                     longitude = position.coords.longitude;
                     alaltitude = position.coords.altitude;
@@ -61,7 +61,7 @@
                 here = translateGeoCoords(position.coords.latitude, position.coords.longitude, position.coords.altitude);
                 delta = new THREE.Vector3(dest.x - here.x, dest.y - here.y, dest.z - here.z);
                 document.getElementById("result").innerHTML = delta.x + "<br>" + delta.y + "<br>" + delta.z;
-            },
+*/            },
             function(error) {
                 alert(error.code);
             }
