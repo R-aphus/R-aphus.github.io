@@ -72,7 +72,8 @@
         window.addEventListener('deviceorientation', function(event) {
             heading = event.webkitCompassHeading;
             beta = event.beta;
-            gamma = event.gamma;
+            if (event.gamma < 0) gamma = -event.gamma;
+            else gamma = event.gamma;
             document.getElementById("rotation").innerHTML = "<br>" + beta + "<br>" + gamma;
         });
 
