@@ -46,7 +46,7 @@
                 longitude = position.coords.longitude;
                 alaltitude = position.coords.altitude;
                 var dest = new THREE.Vector3;
-                dest = translateGeoCoords(35.96979173188814, 139.586541045361194, 15.0111465410156) - translateGeoCoords(latitude, longitude, alaltitude);
+                dest = translateGeoCoords(35.969791731, 139.5865410453, 15.01114654) - translateGeoCoords(latitude, longitude, alaltitude);
                 document.getElementById("result").innerHTML = dest.x + "<br>" + dest.y + "<br>" + dest.z;
             },
             function(error) {
