@@ -36,7 +36,7 @@
         function tick() {
           // レンダリング
           renderer.render(scene, camera);
-          cone.rotation.y  = heading * Math.PI / 180;
+          cone.rotation.z  = heading * Math.PI / 180;
           requestAnimationFrame(tick);
         }
         window.addEventListener('deviceorientation', function(event) {
