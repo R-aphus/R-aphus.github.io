@@ -15,15 +15,11 @@
 
     // 現在地取得処理
     function getPosition() {
-      var heading = 0;
-      window.addEventListener('deviceorientation', function(event) {
-        heading =  event.webkitCompassHeading;
-　     });
       // 現在地を取得
       navigator.geolocation.watchPosition(
         // 取得成功した場合
         function(position) {
-            document.getElementById('result').innerHTML = "<h1><br>緯度: " + position.coords.latitude + "<br>経度: " + position.coords.longitude + "<br>方角: " + heading + "</h1>";
+            document.getElementById('position').innerHTML = "<h1><br>緯度: " + position.coords.latitude + "<br>経度: " + position.coords.longitude + "</h1>";
 //            alert("緯度:"+position.coords.latitude+",経度"+position.coords.longitude);
         },
         // 取得失敗した場合
@@ -44,6 +40,9 @@
           }
         }
       );
+      window.addEventListener('deviceorientation', function(event) {
+        document.getElementById('heading').innerHTML = "<h1><br>方角: " + event.webkitCompassHeading + "</h1>";
+　     });
     }
   </script>
 </head>
@@ -51,7 +50,9 @@
   <h1>位置情報取得サンプル</h1>
   <button onclick="getPosition();">位置情報を取得する</button>
   <br>
-  <div id="result">
-  </div>
+  <div id="position">
+   </div>
+    <div id="heading">
+    </div>
 </body>
 </html>
