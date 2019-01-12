@@ -42,7 +42,7 @@
         // レンダリング
             renderer.render(scene, camera);
 //            cone.rotation.z  = heading * Math.PI / 180;
-            cone.rotation.z = heading * Math.PI / 180 - Math.atan((dest.z - here.z) / (dest.x - here.x));
+            cone.rotation.z = heading * Math.PI / 180  + Math.PI - Math.atan((dest.z - here.z) / (dest.x - here.x));
             requestAnimationFrame(tick);
         }
         navigator.geolocation.watchPosition(
