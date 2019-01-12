@@ -35,6 +35,7 @@
         var alaltitude = 0;
         var dest = new THREE.Vector3(0,0,0);
         var here = new THREE.Vector3(0,0,0);
+        var delta = new THREE.Vector3(0,0,0);
         var heading = 0;
         tick();
         // 毎フレーム時に実行されるループイベントです
@@ -42,7 +43,8 @@
         // レンダリング
             renderer.render(scene, camera);
 //            cone.rotation.z  = heading * Math.PI / 180;
-            cone.rotation.z = heading * Math.PI / 180  + Math.PI - Math.atan((dest.z - here.z) / (dest.x - here.x));
+            cone.rotation.x = Math.acos(delta.z / Math.sqrt(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z));
+            cone.rotation.z = heading * Math.PI / 180  + Math.PI - Math.atan(delta.z / delta.x);
             requestAnimationFrame(tick);
         }
         navigator.geolocation.watchPosition(
@@ -54,7 +56,8 @@
                 }
                 dest = translateGeoCoords(latitude, longitude, alaltitude);
                 here = translateGeoCoords(position.coords.latitude, position.coords.longitude, position.coords.altitude);
-                document.getElementById("result").innerHTML = (dest.x - here.x) + "<br>" + (dest.y - here.y) + "<br>" + (dest.z - here.z);
+                delta = new THREE.Vector3(dest.x - here.x, dest.y - here.y, dest.z - here.z);
+                document.getElementById("result").innerHTML = delta.x + "<br>" + delta.y + "<br>" + delta.z;
             },
             function(error) {
                 alert(error.code);
