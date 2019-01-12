@@ -45,9 +45,9 @@
         // レンダリング
             renderer.render(scene, camera);
 //            cone.rotation.z  = heading * Math.PI / 180;
-            cone.rotation.x = - Math.acos(delta.z / Math.sqrt(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z)) - beta * Math.PI / 180;
+//            cone.rotation.x = - Math.acos(delta.z / Math.sqrt(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z)) - beta * Math.PI / 180;
             cone.rotation.y = - gamma * Math.PI / 180;
-            cone.rotation.z = heading * Math.PI / 180  - Math.atan(delta.z / delta.x);
+//            cone.rotation.z = heading * Math.PI / 180  - Math.atan(delta.z / delta.x);
             requestAnimationFrame(tick);
         }
         navigator.geolocation.watchPosition(
