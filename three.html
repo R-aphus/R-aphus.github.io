@@ -63,7 +63,7 @@
                 dest = translateGeoCoords(latitude, longitude, alaltitude);
                 here = translateGeoCoords(position.coords.latitude, position.coords.longitude, position.coords.altitude);
                 delta = new THREE.Vector3(dest.x - here.x, dest.y - here.y, dest.z - here.z);
-                document.getElementById("result").innerHTML = delta.x + "<br>" + delta.y + "<br>" + delta.z;
+                document.getElementById("result").innerHTML = delta.x + "<br>" + delta.y + "<br>" + delta.z + "<br><br>" + beta + "<br>" + gamma;
             },
             function(error) {
                 alert(error.code);
@@ -71,10 +71,8 @@
         );
         window.addEventListener('deviceorientation', function(event) {
             heading = event.webkitCompassHeading;
-            if (event.beta < 0) beta = event.beta + 180;
-            else beta = event.beta;
-            if (event.gamma < 0) gamma = event.gamma + 180;
-            else gamma = event.gamma;
+            beta = event.beta;
+            gamma = event.gamma;
         });
 
         function translateGeoCoords(latitude, longitude, height) {
