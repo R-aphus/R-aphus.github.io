@@ -15,11 +15,15 @@
 
     // 現在地取得処理
     function getPosition() {
+      var heading = 0;
+      window.addEventListener('deviceorientation', function(event) {
+        heading =  event.webkitCompassHeading;
+　     });
       // 現在地を取得
       navigator.geolocation.watchPosition(
         // 取得成功した場合
         function(position) {
-            document.getElementById('result').innerHTML = "<h1><br>緯度: " + position.coords.latitude + "<br>経度: " + position.coords.longitude + "<br>方角: " + position.coords.heading + "</h1>";
+            document.getElementById('result').innerHTML = "<h1><br>緯度: " + position.coords.latitude + "<br>経度: " + position.coords.longitude + "<br>方角: " + heading + "</h1>";
 //            alert("緯度:"+position.coords.latitude+",経度"+position.coords.longitude);
         },
         // 取得失敗した場合
