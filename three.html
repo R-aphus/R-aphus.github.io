@@ -50,7 +50,7 @@
 //            cone.rotation.z = heading * Math.PI / 180  + Math.PI - Math.atan(delta.z / delta.x);
             cone.rotation.x = - beta * Math.PI / 180;
             cone.rotation.y = - gamma * Math.PI / 180;
-            cone.rotation.z = - heading * Math.PI / 180;
+            cone.rotation.z = heading * Math.PI / 180;
             requestAnimationFrame(tick);
         }
         navigator.geolocation.watchPosition(
