@@ -71,8 +71,10 @@
         );
         window.addEventListener('deviceorientation', function(event) {
             heading = event.webkitCompassHeading;
-            beta = event.beta;
-            gamma = event.gamma;
+            if (event.beta < 0) beta = event.beta + 180;
+            else beta = event.beta;
+            if (event.gamma < 0) gamma = event.gamma + 180;
+            else gamma = event.gamma;
         });
 
         function translateGeoCoords(latitude, longitude, height) {
