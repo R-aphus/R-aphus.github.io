@@ -23,7 +23,7 @@
         const geometry = new THREE.ConeGeometry( 5, 20, 32 );
         const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
         const cone = new THREE.Mesh( geometry, material );
-        cone.position.y = 20;
+        cone.position.y = 10;
         const group = new THREE.Group();
         group.add(cone);
         scene.add( group );
