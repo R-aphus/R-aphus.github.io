@@ -24,7 +24,9 @@
         const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
         const cone = new THREE.Mesh( geometry, material );
         cone.position.y = 20;
-        scene.add( cone );
+        const group;
+        group.add(cone);
+        scene.add( group );
 
         // 平行光源
         const directionalLight = new THREE.DirectionalLight(0xffffff);
@@ -46,9 +48,9 @@
         // レンダリング
             renderer.render(scene, camera);
 //            cone.rotation.z  = heading * Math.PI / 180;
-            cone.rotation.x = - Math.acos(delta.z / Math.sqrt(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z)) - beta * Math.PI / 180;
-            cone.rotation.y = - gamma * Math.PI / 180;
-            cone.rotation.z = heading * Math.PI / 180  - Math.atan(delta.z / delta.x);
+            group.rotation.x = - Math.acos(delta.z / Math.sqrt(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z)) - beta * Math.PI / 180;
+            group.rotation.y = - gamma * Math.PI / 180;
+            group.rotation.z = heading * Math.PI / 180  - Math.atan(delta.z / delta.x);
             requestAnimationFrame(tick);
         }
         navigator.geolocation.watchPosition(
