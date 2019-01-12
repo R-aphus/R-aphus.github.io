@@ -34,10 +34,10 @@
         var heading = 0;
         // 毎フレーム時に実行されるループイベントです
         function tick() {
-          // レンダリング
-          renderer.render(scene, camera);
-          cone.rotation.z  = heading * Math.PI / 180;
-          requestAnimationFrame(tick);
+        // レンダリング
+            renderer.render(scene, camera);
+//            cone.rotation.z  = heading * Math.PI / 180;
+            requestAnimationFrame(tick);
         }
         var latitude = 0;
         var longitude = 0;
@@ -51,6 +51,7 @@
                 }
                 var dest = translateGeoCoords(latitude, longitude, alaltitude);
                 var here = translateGeoCoords(position.coords.latitude, position.coords.longitude, position.coords.altitude);
+                cone.rotation.z = Math.atan((dest.z - here.z) / (dest.x - here.x));
                 document.getElementById("result").innerHTML = (dest.x - here.x) + "<br>" + (dest.y - here.y) + "<br>" + (dest.z - here.z);
             },
             function(error) {
