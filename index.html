@@ -6,10 +6,7 @@
 
   <script>
     // Geolocation APIに対応している
-    if (navigator.geolocation) {
-      alert("この端末では位置情報が取得できます");
-    // Geolocation APIに対応していない
-    } else {
+    if (!navigator.geolocation) {
       alert("この端末では位置情報が取得できません");
     }
 
@@ -50,24 +47,28 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/100/three.min.js"></script>
 		<script>
 			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+			var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
 			var renderer = new THREE.WebGLRenderer();
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 
-			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-			var cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );
+      const directionalLight = new THREE.DirectionalLight(0xFFFFFF);
+      directionalLight.position.set(-1, 1, 0);
+      scene.add(directionalLight);
 
-			camera.position.z = 5;
+      const geometry = new THREE.ConeGeometry( 5, 20, 32 );
+      const material = new THREE.MeshBasicMaterial( {color: 0xFF0000} );
+      const cone = new THREE.Mesh( geometry, material );
+      scene.add( cone );
+
+			camera.position.z = 100;
 
 			var animate = function () {
 				requestAnimationFrame( animate );
 
-				cube.rotation.x += 0.01;
-				cube.rotation.y += 0.01;
+				cone.rotation.x += 0.01;
+				cone.rotation.y += 0.01;
 
 				renderer.render( scene, camera );
 			};
