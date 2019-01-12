@@ -39,10 +39,13 @@
           cone.rotation.z  = heading * Math.PI / 180;
           requestAnimationFrame(tick);
         }
+        var latitude, longitude, alaltitude
         navigator.geolocation.watchPosition(
             function(position) {
-
-                document.getElementById('position').innerHTML = "<h1><br>緯度: " + position.coords.latitude + "<br>経度: " + position.coords.longitude + "</h1>";
+                latitude = position.coords.latitude;
+                longitude = position.coords.longitude;
+                alaltitude = position.coords.altitude;
+                document.getElementById("result").innerHTML = translateGeoCoords(35.96979173188814, 139.586541045361194, 15.0111465410156) - translateGeoCoords(latitude, longitude, alaltitude);
             },
             function(error) {
                 alert(error.code);
@@ -52,11 +55,12 @@
             heading = event.webkitCompassHeading;
         });
 
-        function translateGeoCoords(latitude, longitude, radius) {
+        function translateGeoCoords(latitude, longitude, height) {
             // 仰角
             const phi = (latitude) * Math.PI / 180;
             // 方位角
             const theta = (longitude - 180) * Math.PI / 180;
+            const radius = 6378100 + height;
             const x = -(radius) * Math.cos(phi) * Math.cos(theta);
             const y = (radius) * Math.sin(phi);
             const z = (radius) * Math.cos(phi) * Math.sin(theta);            
@@ -67,5 +71,6 @@
   </head>
   <body>
     <canvas id="myCanvas"></canvas>
+    <div id="result"></div>
   </body>
 </html>
