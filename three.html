@@ -39,9 +39,29 @@
           cone.rotation.z  = heading * Math.PI / 180;
           requestAnimationFrame(tick);
         }
+        navigator.geolocation.watchPosition(
+            function(position) {
+
+                document.getElementById('position').innerHTML = "<h1><br>緯度: " + position.coords.latitude + "<br>経度: " + position.coords.longitude + "</h1>";
+            },
+            function(error) {
+                alert(error.code);
+            }
+        );
         window.addEventListener('deviceorientation', function(event) {
             heading = event.webkitCompassHeading;
         });
+
+        function translateGeoCoords(latitude, longitude, radius) {
+            // 仰角
+            const phi = (latitude) * Math.PI / 180;
+            // 方位角
+            const theta = (longitude - 180) * Math.PI / 180;
+            const x = -(radius) * Math.cos(phi) * Math.cos(theta);
+            const y = (radius) * Math.sin(phi);
+            const z = (radius) * Math.cos(phi) * Math.sin(theta);            
+            return new THREE.Vector3(x, y, z);
+        }
       }
     </script>
   </head>

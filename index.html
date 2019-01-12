@@ -16,7 +16,7 @@
       navigator.geolocation.watchPosition(
         // 取得成功した場合
         function(position) {
-            document.getElementById('position').innerHTML = "<h1><br>緯度: " + position.coords.latitude + "<br>経度: " + position.coords.longitude + "</h1>";
+            document.getElementById('position').innerHTML = "<h1><br>緯度: " + position.coords.latitude + "<br>経度: " + position.coords.longitude + "<br>高度: " + position.coords.altitude + "</h1>";
 //            alert("緯度:"+position.coords.latitude+",経度"+position.coords.longitude);
         },
         // 取得失敗した場合
