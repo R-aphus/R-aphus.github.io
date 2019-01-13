@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>Box on Grid</title>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+
+</head>
+<body>
+  <div id="stage"></div>
+  <script src="js/three.min.js"></script>
+  <script src="js/OrbitControls.js"></script>
+  <script src="js/DeviceOrientationControls.js"></script>
+  <script>
+  (function() {
+    'use strict';
+
+    var scene;
+    var box;
+    var light;
+    var ambient;
+    var camera;
+    var gridHelper;
+    var renderer;
+    var controls;
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+
+    //scene
+    scene = new THREE.Scene();
+
+    //box
+    box = new THREE.Mesh(
+        new THREE.BoxGeometry(40, 40, 40),
+        new THREE.MeshLambertMaterial({ color: 0xff0000 })
+    );
+    box.position.set(0, 20, 0);
+    scene.add(box);
+
+
+    //light
+    light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(0, 100, 30);
+    scene.add(light);
+    ambient = new THREE.AmbientLight(0x404040);
+    scene.add(ambient);
+
+    //camera
+    camera = new THREE.PerspectiveCamera(100, width / height, 1, 5000);
+    camera.position.set(0, 100, 300);
+    camera.lookAt(scene.position);
+
+    //helper
+    gridHelper = new THREE.GridHelper(500, 50, 0xff0000);
+    scene.add(gridHelper);
+
+    //renderer
+    renderer = new THREE.WebGLRenderer({ antialias: true});
+    renderer.setSize(width, height);
+    renderer.setClearColor(0x000000);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    document.getElementById('stage').appendChild(renderer.domElement);
+
+    function tick() {
+
+      requestAnimationFrame(tick);
+
+      //��x�A�R���g���[���[�̍X�V����āA�l�𔽉f������
+      if(controls) {
+        controls.update();
+
+        //�X�V��A�J�����p�x��f���̉�]�ɗ^����iinverse = �t�ɂ��Ă��܂��B inverse�i�V���������������j
+        box.quaternion.copy(camera.quaternion.inverse());
+
+        //LookAt�Ń��f������I�Ɍ���p�x(�����ʒu)�ɕς���
+        camera.lookAt(0, 1, 0);
+        //�d�v�ImatrixAutoUpdate��؂�Ascene.update�@�ōX�V����Ȃ��悤�ɂ���I
+        camera.matrixAutoUpdate = false;
+
+       renderer.render(scene, camera);
+
+      } else {
+
+        renderer.render(scene, camera);
+        controls = new THREE.DeviceOrientationControls(camera);
+        camera.updateProjectionMatrix();
+
+      }
+    }
+
+    tick();
+
+  })();
+  </script>
+</body>
+</html>
