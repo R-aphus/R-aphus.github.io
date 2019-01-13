@@ -54,7 +54,7 @@
 //            group.rotation.z = heading * Math.PI / 180  - Math.atan(delta.z / delta.x);
             group.rotation.x = - beta * Math.PI / 180;
             group.rotation.y = - gamma * Math.PI / 180;
-            group.rotation.z = alpha * Math.PI / 180;
+            group.rotation.z = - alpha * Math.PI / 180;
             requestAnimationFrame(tick);
         }
         navigator.geolocation.watchPosition(
