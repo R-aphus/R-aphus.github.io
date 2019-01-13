@@ -40,6 +40,7 @@
         var here = new THREE.Vector3(0,0,0);
         var delta = new THREE.Vector3(1,1,1);
         var heading = 0;
+        var alpha = 0;
         var beta = 0;
         var gamma = 0;
         tick();
@@ -48,9 +49,12 @@
         // レンダリング
             renderer.render(scene, camera);
 //            cone.rotation.z  = heading * Math.PI / 180;
-            group.rotation.x = - Math.acos(delta.z / Math.sqrt(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z)) - beta * Math.PI / 180;
+//            group.rotation.x = - Math.acos(delta.z / Math.sqrt(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z)) - beta * Math.PI / 180;
+//            group.rotation.y = - gamma * Math.PI / 180;
+//            group.rotation.z = heading * Math.PI / 180  - Math.atan(delta.z / delta.x);
+            group.rotation.x = - beta * Math.PI / 180;
             group.rotation.y = - gamma * Math.PI / 180;
-            group.rotation.z = heading * Math.PI / 180  - Math.atan(delta.z / delta.x);
+            group.rotation.z = - alpha * Math.PI / 180;
             requestAnimationFrame(tick);
         }
         navigator.geolocation.watchPosition(
@@ -71,8 +75,9 @@
         );
         window.addEventListener('deviceorientation', function(event) {
             heading = event.webkitCompassHeading;
-            beta = event.beta / 2;
-            gamma = event.gamma / 2;
+            alpha = event.alpha;
+            beta = event.beta;
+            gamma = event.gamma;
             document.getElementById("rotation").innerHTML = "<br>" + heading + "<br>" + beta + "<br>" + gamma;
         });
 
