@@ -31,7 +31,6 @@
 					new THREE.ConeGeometry(20, 80, 32),
 					new THREE.MeshLambertMaterial({ color: 0xff0000 })
 				);
-				cone.position.set(0, 20, 0);
 				scene.add(cone);
 
 				light = new THREE.DirectionalLight(0xffffff, 1);
@@ -41,10 +40,10 @@
 				scene.add(ambient);
 
 				camera = new THREE.PerspectiveCamera(100, width / height, 1, 5000);
-				camera.position.set(0, 100, 300);
+				camera.position.set(0, 0, 100);
 				camera.lookAt(scene.position);
 
-				renderer = new THREE.WebGLRenderer({ antialias: true});
+				renderer = new THREE.WebGLRenderer({antialias: true});
 				renderer.setSize(width, height);
 				renderer.setClearColor(0x000000);
 				renderer.setPixelRatio(window.devicePixelRatio);
