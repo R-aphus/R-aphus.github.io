@@ -43,21 +43,29 @@
 				camera.position.set(0, 0, 100);
 				camera.lookAt(scene.position);
 
-				//helper
-				gridHelper = new THREE.GridHelper(500, 50, 0xff0000);
-				scene.add(gridHelper);
-
 				renderer = new THREE.WebGLRenderer({antialias: true});
 				renderer.setSize(width, height);
 				renderer.setClearColor(0x000000);
 				renderer.setPixelRatio(window.devicePixelRatio);
 				document.getElementById('stage').appendChild(renderer.domElement);
-
+				var Axis = {
+					"x" : new THREE.Vector3(1, 0, 0).normalize(),
+					"y" : new THREE.Vector3(0, 1, 0).normalize(),
+					"z" : new THREE.Vector3(0, 0, 1).normalize()
+				};
 				function tick() {
 					requestAnimationFrame(tick);
 					if(controls) {
 						controls.update();
-						cone.quaternion.copy(camera.quaternion.inverse());
+
+						var q = new THREE.Quaternion();
+						q.setFromAxisAngle(Axis["x"], Math.PI);
+						q.multiply(cone.quaternion.clone());
+						cone.quaternion.copy(q);
+						q.setFromAxisAngle(camera.quaternion.inverse());
+						q.multiply(cone.quaternion.clone());
+						cone.quaternion.copy(q);
+//						cone.quaternion.copy(camera.quaternion.inverse());
 						camera.lookAt(0, 1, 0);
 						camera.matrixAutoUpdate = false;
 						renderer.render(scene, camera);
