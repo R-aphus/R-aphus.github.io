@@ -54,7 +54,7 @@
 //            group.rotation.z = heading * Math.PI / 180  - Math.atan(delta.z / delta.x);
             group.rotation.x = - beta * Math.PI / 180;
             group.rotation.y = - gamma * Math.PI / 180;
-            group.rotation.z = - alpha * Math.PI / 180;
+            group.rotation.z = alpha * Math.PI / 180;
             requestAnimationFrame(tick);
         }
         navigator.geolocation.watchPosition(
@@ -76,8 +76,8 @@
         window.addEventListener('deviceorientation', function(event) {
             heading = event.webkitCompassHeading;
             alpha = event.alpha;
-            beta = event.beta + 180;
-            gamma = event.gamma + 180;
+            beta = event.beta;
+            gamma = event.gamma;
             document.getElementById("rotation").innerHTML = "<br>" + heading + "<br>" + beta + "<br>" + gamma;
         });
 
