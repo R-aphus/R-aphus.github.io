@@ -77,7 +77,7 @@
             heading = event.webkitCompassHeading;
             alpha = event.alpha;
             beta = event.beta;
-            gamma = event.gamma;
+            gamma = event.gamma * 2;
             document.getElementById("rotation").innerHTML = "<br>" + heading + "<br>" + beta + "<br>" + gamma;
         });
 
