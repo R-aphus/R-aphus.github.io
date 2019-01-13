@@ -43,6 +43,10 @@
 				camera.position.set(0, 0, 100);
 				camera.lookAt(scene.position);
 
+				//helper
+				gridHelper = new THREE.GridHelper(500, 50, 0xff0000);
+				scene.add(gridHelper);
+
 				renderer = new THREE.WebGLRenderer({antialias: true});
 				renderer.setSize(width, height);
 				renderer.setClearColor(0x000000);
