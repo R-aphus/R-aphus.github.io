@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta charset="utf-8">
+        <title>umbrella</title>
+	</head>
+	<body>
+        <h1 id="result">loading...</h1>
+        <script>
+            fetch('http://ip-api.com/json/')
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(json) {
+                    var appid = "d1c78d7630a66a0281cee9583cff3a71";
+                    fetch('http://api.openweathermap.org/data/2.5/forecast' + "?lat=" + json.lat + "&lon=" + json.lon + "&appid=" + appid)
+                        .then(function(response) {
+                            return response.json();
+                        })
+                        .then(function(json) {
+                            var rain = 0;
+                            var max = 0;
+                            var dt = (new Date()).getTime();
+                            for (var i in json.list) {
+                                if (json.list[i].dt - dt / 1000 < 60 * 60 * 24) {
+                                    try {
+                                        rain = json.list[i].rain['3h'];
+                                        if (!isNaN(rain) && rain > max) max = rain;
+                                    } catch(e) {}
+                                }
+                            }
+                            if (max >= 1.0 * 3.0) document.getElementById("result").innerText = "umbrella!";
+                            else document.getElementById("result").innerText = "unumbrella!";
+                        })
+                });
+        </script>
+    </body>
+</html>
