@@ -7,13 +7,13 @@
 	<body>
         <h1 id="result">loading...</h1>
         <script>
-            fetch('http://ip-api.com/json/')
+            fetch('https://ipapi.co/json')
                 .then(function(response) {
                     return response.json();
                 })
                 .then(function(json) {
                     var appid = "d1c78d7630a66a0281cee9583cff3a71";
-                    fetch('http://api.openweathermap.org/data/2.5/forecast' + "?lat=" + json.lat + "&lon=" + json.lon + "&appid=" + appid)
+                    fetch('http://api.openweathermap.org/data/2.5/forecast' + "?lat=" + json.latitude + "&lon=" + json.longitude + "&appid=" + appid)
                         .then(function(response) {
                             return response.json();
                         })
