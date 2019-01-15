@@ -1,86 +1,13 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title>位置情報取得サンプル</title>
-
-  <script>
-    // Geolocation APIに対応している
-    if (!navigator.geolocation) {
-      alert("この端末では位置情報が取得できません");
-    }
-
-    // 現在地取得処理
-    function getPosition() {
-      // 現在地を取得
-      navigator.geolocation.watchPosition(
-        // 取得成功した場合
-        function(position) {
-            document.getElementById('position').innerHTML = "<h1><br>緯度: " + position.coords.latitude + "<br>経度: " + position.coords.longitude + "<br>高度: " + position.coords.altitude + "</h1>";
-//            alert("緯度:"+position.coords.latitude+",経度"+position.coords.longitude);
-        },
-        // 取得失敗した場合
-        function(error) {
-          switch(error.code) {
-            case 1: //PERMISSION_DENIED
-              alert("位置情報の利用が許可されていません");
-              break;
-            case 2: //POSITION_UNAVAILABLE
-              alert("現在位置が取得できませんでした");
-              break;
-            case 3: //TIMEOUT
-              alert("タイムアウトになりました");
-              break;
-            default:
-              alert("その他のエラー(エラーコード:"+error.code+")");
-              break;
-          }
-        }
-      );
-      window.addEventListener('deviceorientation', function(event) {
-        document.getElementById('heading').innerHTML = "<h1><br>方角: " + event.webkitCompassHeading + "</h1>";
-　     });
-    }
-  </script>
-</head>
-<body>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/100/three.min.js"></script>
-		<script>
-			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
-
-			var renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
-
-      const directionalLight = new THREE.DirectionalLight(0xFFFFFF);
-      directionalLight.position.set(-1, 1, 0);
-      scene.add(directionalLight);
-
-      const geometry = new THREE.ConeGeometry( 5, 20, 32 );
-      const material = new THREE.MeshBasicMaterial( {color: 0xFF0000} );
-      const cone = new THREE.Mesh( geometry, material );
-      scene.add( cone );
-
-			camera.position.z = 100;
-
-			var animate = function () {
-				requestAnimationFrame( animate );
-
-				cone.rotation.x += 0.01;
-				cone.rotation.y += 0.01;
-
-				renderer.render( scene, camera );
-			};
-
-			animate();
-		</script>
-  <h1>位置情報取得サンプル</h1>
-  <button onclick="getPosition();">位置情報を取得する</button>
-  <br>
-  <div id="position">
-   </div>
-    <div id="heading">
-    </div>
-</body>
+<html>
+	<head>
+		<title>Top</title>
+	</head>
+	<body>
+		<ul>
+			<li>
+				<a src="/umbrella.html">umbrellla!</a>
+			</li>
+		</ul>
+	</body>
 </html>
