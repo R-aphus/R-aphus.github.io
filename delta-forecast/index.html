@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta property="og:title" content="umbrella!" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://r-aphus.github.io/umbrella/" />
+        <meta property="og:image" content="https://r-aphus.github.io/umbrella/icon.png" />
+        <meta property="og:site_name" content="umbrella!" />
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="https://r-aphus.github.io/umbrella/">
+        <meta name="twitter:title" content="umbrella!">
+        <meta name="twitter:image" content="https://r-aphus.github.io/umbrella/icon.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="apple-mobile-web-app-title" content="umbrella!">
+        <link rel="apple-touch-icon" href="https://r-aphus.github.io/umbrella/icon.png" sizes="637×518"/>
+        <title>ΔForecast</title>
+        <style type="text/css">
+            html, body {
+              width: 100%;
+              height: 100%;
+              margin: 0;
+              padding: 0;
+              font-size: 10vh;
+              transition: background-coloe 500ms 0s ease;
+            }
+            html {
+              display: table;
+            }
+            body {
+              display: table-cell;
+              text-align: center;
+              vertical-align: middle;
+            }
+        </style>
+        <style type="text/css" id="style"></style>
+	</head>
+	<body>
+        <div id="result">loading...</div>
+        <script>
+            fetch('https://ipapi.co/json/')
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(json) {
+                    var appid = "d1c78d7630a66a0281cee9583cff3a71";
+                    fetch('https://api.openweathermap.org/data/2.5/weather' + "?lat=" + json.latitude + "&lon=" + json.longitude + "&appid=" + appid)
+                        .then(function(response) {
+                            return response.json();
+                        })
+                        .then(function(today) {
+                            fetch('https://api.openweathermap.org/data/2.5/forecast' + "?lat=" + json.latitude + "&lon=" + json.longitude + "&appid=" + appid)
+                                .then(function(response) {
+                                    return response.json();
+                                })
+                                .then(function(tommorow) {
+                                    console.log(today.main.);
+                                })
+                        })
+                });
+        </script>
+    </body>
+</html>
