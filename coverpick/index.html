@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta property="og:title" content="CoverPick" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://r-aphus.github.io/coverpick/" />
+        <meta property="og:image" content="https://r-aphus.github.io/coverpick/icon.png" />
+        <meta property="og:site_name" content="CoverPick" />
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="https://r-aphus.github.io/coverpick/">
+        <meta name="twitter:title" content="CoverPick">
+        <meta name="twitter:image" content="https://r-aphus.github.io/coverpick/icon.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="apple-mobile-web-app-title" content="CoverPick!">
+        <link rel="apple-touch-icon" href="https://r-aphus.github.io/coverpick/icon.png" sizes="637×518"/>
+        <title>CoverPick</title>
+        <style>
+            img {
+                height: 31vw;
+                width: 31vw;
+            }
+        </style>
+	</head>
+	<body>
+        <div id="result"></div>
+        <script>
+            function callback(json) {
+                var div = document.getElementById("result");
+                for (var i in json.results) {
+                    var img = document.createElement('img');
+                    img.setAttribute("src", json.results[i].artworkUrl100);
+                    img.setAttribute("onclick", "play('" + json.results[i].previewUrl + "')");
+                    div.appendChild(img);
+                }
+            }
+            var audio = new Audio();
+            var playing = "";
+            function play(url) {
+                audio.pause();
+                if (playing == url) playing = "";
+                else {
+                    playing = url;
+                    audio.src = url;
+                    audio.play();
+                }
+            }
+        </script>
+        <script type='text/javascript' src='https://itunes.apple.com/search?term=onerepublic&media=music&callback=callback'></script>
+    </body>
+</html>
