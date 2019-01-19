@@ -59,7 +59,7 @@
 						controls.update();
 
 						var q = new THREE.Quaternion();
-						q.setFromAxisAngle(Axis["y"], Math.PI / 4);
+						q.setFromAxisAngle(Axis["z"], Math.PI / 4);
 						q.multiply(cone.quaternion.clone());
 						cone.quaternion.copy(q);
 						q.setFromAxisAngle(camera.quaternion.inverse());
