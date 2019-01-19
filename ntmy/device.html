@@ -57,13 +57,14 @@
 					requestAnimationFrame(tick);
 					if(controls) {
 						controls.update();
-
+/*
 						var q = new THREE.Quaternion();
 						q.setFromAxisAngle(Axis["x"], Math.PI);
 						q.multiply(cone.quaternion.clone());
 						cone.quaternion.copy(q);
 						q.setFromAxisAngle(camera.quaternion.inverse());
 						q.multiply(cone.quaternion.clone());
+*/
 //						cone.quaternion.copy(q);
 						cone.quaternion.copy(camera.quaternion.inverse());
 						camera.lookAt(0, 1, 0);
