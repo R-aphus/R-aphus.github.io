@@ -70,7 +70,7 @@
 //						cone.quaternion.copy(camera.quaternion.inverse());
 
 						q.multiply(camera.quaternion.inverse());
-						cone.quaternion.copy(camera.quaternion.inverse());
+						cone.quaternion.copy(q);
 
 						camera.lookAt(0, 1, 0);
 						camera.matrixAutoUpdate = false;
