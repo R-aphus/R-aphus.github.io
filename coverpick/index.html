@@ -18,72 +18,43 @@
         <link rel="apple-touch-icon" href="https://r-aphus.github.io/coverpick/icon.png" sizes="637×518"/>
         <title>CoverPick</title>
         <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
             img {
-                height: 23vw;
-                width: 23vw;
+                height: 25vw;
+                width: 25vw;
             }
         </style>
 	</head>
 	<body>
         <div id="result"></div>
         <script>
-            var div = document.getElementById("result");
-            fetch("https://musicbrainz.org/ws/2/release/?query=country:us&fmt=json&offset=123456")
-                .then(function(response) {
-                    return response.json();
-                })
-                .then(function(json) {
-                    console.log(json);
-                    for (var i in json.releases) {
-                        console.log(json.releases[i]);
-                        sleep(5000);
-                        fetch("https://coverartarchive.org/release/" + json.releases[i].id + "/front")
-                            .then(function(response) {
-                                console.log(response);
-                                var img = document.createElement('img');
-                                img.setAttribute("src", response.url);
-                                div.appendChild(img);
-                            })
-                    }
-                })
-
-                function sleep(a){
-                    var dt1 = new Date().getTime();
-                    var dt2 = new Date().getTime();
-                    while (dt2 < dt1 + a){
-                        dt2 = new Date().getTime();
-                    }
-                    return;
+            function API() {
+                if (loading == false) {
+                    loading = true;
+                    var script = document.createElement('script');
+                    script.setAttribute("type", "text/javascript");
+                    script.setAttribute("src", "https://itunes.apple.com/search?term=album&media=music&entity=album&callback=callback&offset=" + Math.floor(Math.random() * 200) * 50);
+                    document.body.appendChild(script);
                 }
-/*
-            var country = "us";
-            fetch("http://musicbrainz.org/ws/2/artist/?query=country:" + country + "&fmt=json")
-                .then(function(response) {
-                    return response.json();
-                })
-                .then(function(json) {
-                    console.log(json);
-                    for(var i in json.artists) {
-                        console.log(json.artists[i].id);
-                        fetch("")
-                        fetch("https://coverartarchive.org/release/" + json.artists[i].id + "/front")
-                            .then(function(response) {
-                                var img = document.createElement('img');
-                                img.setAttribute("src", response.text());
-                                div.appendChild(img);
-                            })
-                    }
-                })
-*/
-/*
+            }
+            var loading = false;
+            API();
+            window.addEventListener('scroll', () => {
+                let scrollTop = document.scrollingElement.scrollTop;
+                if (scrollTop > (document.body.clientHeight - window.innerHeight * 1.5)) API();
+            }, false);
+            var div = document.getElementById("result");
             function callback(json) {
-                var div = document.getElementById("result");
                 for (var i in json.results) {
                     var img = document.createElement('img');
                     img.setAttribute("src", json.results[i].artworkUrl100);
                     img.setAttribute("onclick", "play('" + json.results[i].previewUrl + "')");
                     div.appendChild(img);
                 }
+                loading = false;
             }
             var audio = new Audio();
             var playing = "";
@@ -96,10 +67,6 @@
                     audio.play();
                 }
             }
-*/
         </script>
-<!--
-        <script type='text/javascript' src='https://itunes.apple.com/search?term=onerepublic&media=music&callback=callback'></script>
--->
     </body>
 </html>
