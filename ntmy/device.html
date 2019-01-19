@@ -62,12 +62,15 @@
 						q.setFromAxisAngle(Axis["x"], 0);
 						q.multiply(cone.quaternion.clone());
 						cone.quaternion.copy(q);
-*/
+
 						q.setFromAxisAngle(camera.quaternion.inverse());
 						q.multiply(cone.quaternion.clone());
 						cone.quaternion.copy(q);
-
+*/
 //						cone.quaternion.copy(camera.quaternion.inverse());
+
+						q.setFromAxisAngle(amera.quaternion.inverse());
+						cone.quaternion.multiply(q);
 
 						camera.lookAt(0, 1, 0);
 						camera.matrixAutoUpdate = false;
