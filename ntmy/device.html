@@ -71,6 +71,7 @@
 
 						q.multiply(camera.quaternion.inverse());
 						cone.quaternion.copy(q);
+						cone.quaternion.multiply(Axis["x"], Math.PI / 2);
 
 						camera.lookAt(0, 1, 0);
 						camera.matrixAutoUpdate = false;
