@@ -69,7 +69,7 @@
 */
 //						cone.quaternion.copy(camera.quaternion.inverse());
 
-						q.setFromAxisAngle(amera.quaternion.inverse());
+						q.setFromAxisAngle(camera.quaternion.inverse());
 						cone.quaternion.multiply(q);
 
 						camera.lookAt(0, 1, 0);
