@@ -51,6 +51,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                background: #0000007a;
             }
         </style>
 	</head>
@@ -106,12 +107,12 @@
                         img_mem.push(img_src);
                         var img = document.createElement('img');
                         img.setAttribute("src", img_src);
-                        img.setAttribute("onclick", "music('" + img_src.replace("200x200", "1000x1000") + "','" + json.results[i].previewUrl + "')");
+                        img.setAttribute("onclick", "music('" + json.results[i].collectionViewUrl + "','" + img_src.replace("200x200", "1000x1000") + "','" + json.results[i].previewUrl + "')");
                         div.appendChild(img);
                     }
                 }
             }
-            function music(img_src, audio_src) {
+            function music(page, img_src, audio_src) {
                 audio.pause();
                 if (audio.src == audio_src) audio.src = "";
                 else {
@@ -121,6 +122,7 @@
                 var img = document.createElement('img');
                 img.setAttribute("src", img_src);
                 img.setAttribute("id", "modal_img");
+                img.setAttribute("onclick" , "window.open('" + page + "', null, \"menubar=yes\");");
                 var modal = document.createElement('div');
                 modal.setAttribute("id", "modal");
                 modal.setAttribute("onclick", "delete_modal();");
