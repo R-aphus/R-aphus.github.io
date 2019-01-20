@@ -76,13 +76,14 @@
                                     } catch(e) {}
                                 } else break;
                             }
-                            document.getElementById("page1").style.color = "#FFFFFF";
+                            var page1 = document.getElementById("page1")
+                            page1.style.color = "#FFFFFF";
                             if (max >= 0.5 * 3.0) {
-                                document.getElementById("page1").innerText = "umbrella!";
-                                document.body.style.background = "linear-gradient(to bottom, #1488cc, #2b32b2)";
+                                page1.innerText = "umbrella!";
+                                page1.style.background = "linear-gradient(to bottom, #1488cc, #2b32b2)";
                             } else {
-                                document.getElementById("page1").innerText = "unumbrella!";
-                                document.getElementById("page1").style.background = "linear-gradient(to top, #fdc830, #f37335)";
+                                page1.innerText = "unumbrella!";
+                                page1.style.background = "linear-gradient(to top, #fdc830, #f37335)";
                             }
                         })
                 });

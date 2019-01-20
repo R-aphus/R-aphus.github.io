@@ -19,54 +19,126 @@
         <title>CoverPick</title>
         <style>
             body {
+                position: relative;
                 margin: 0;
+                margin-top: 5vh;
                 padding: 0;
+                background: #FFC778;
             }
             img {
-                height: 33vw;
-                width: 33vw;
+                width: 33.333vw;
+                height: auto;
                 vertical-align: bottom;
+            }
+            #nav {
+                position: fixed;
+                display: flex;
+                top: 0;
+                height: 5vh;
+                width: 100vw;
+                background: #FFC778;
+            }
+            #modal {
+                position: fixed;
+                top: 0;
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         </style>
 	</head>
 	<body>
+        <div id="nav">
+            <div>CoverPick</div>
+            <div>
+                <a onclick="theme(1);">Album</a>
+                <a onclick="theme(2);">Book</a>
+                <a onclick="theme(3);">Movie</a>
+            </div>
+        </div>
         <div id="result"></div>
         <script>
-            function API() {
+            var loading = false;
+            var theme = 2;
+            API(theme);
+            var div = document.getElementById("result");
+            var img_src = "";
+            var audio = new Audio();
+            audio.volume = 0.2;
+            
+            window.addEventListener('scroll', () => {
+                if (document.scrollingElement.scrollTop > (document.body.clientHeight - window.innerHeight * 1.5)) API(theme);
+            }, false);
+
+            function API(theme) {
                 if (loading == false) {
                     loading = true;
                     var script = document.createElement('script');
                     script.setAttribute("type", "text/javascript");
-                    script.setAttribute("src", "https://itunes.apple.com/search?term=album&media=music&entity=album&callback=callback&offset=" + Math.floor(Math.random() * 200) * 50);
+                    switch (theme) {
+                        case 1:
+                            script.setAttribute("src", "https://itunes.apple.com/search?term=track&media=music&entity=musicTrack&limit=20&callback=album&offset=" + Math.floor(Math.random() * 500) * 20);
+                            break;
+                        case 2:
+                            script.setAttribute("src", "https://itunes.apple.com/search?term=movie&media=movie&limit=20&callback=movie&offset=" + Math.floor(Math.random() * 250) * 20);
+                            break;
+                        case 3:
+                            break;
+                        default:
+                    }
                     document.body.appendChild(script);
                 }
             }
-            var loading = false;
-            API();
-            window.addEventListener('scroll', () => {
-                let scrollTop = document.scrollingElement.scrollTop;
-                if (scrollTop > (document.body.clientHeight - window.innerHeight * 1.5)) API();
-            }, false);
-            var div = document.getElementById("result");
-            function callback(json) {
-                for (var i in json.results) {
-                    var img = document.createElement('img');
-                    img.setAttribute("src", json.results[i].artworkUrl100);
-                    img.setAttribute("onclick", "play('" + json.results[i].previewUrl + "')");
-                    div.appendChild(img);
-                }
+            function album(json) {
                 loading = false;
+                var img_mem = [];
+                for (var i in json.results) {
+                    console.log(json.results[i]);
+                    img_src = json.results[i].artworkUrl100;
+                    if (img_mem.indexOf(img_src) < 0) {
+                        img_mem.push(img_src);
+                        var img = document.createElement('img');
+                        img.setAttribute("src", img_src);
+                        img.setAttribute("onclick", "audio('" + json.results[i].previewUrl + "')");
+                        div.appendChild(img);
+                    }
+                }
             }
-            var audio = new Audio();
-            var playing = "";
-            function play(url) {
+            function audio(url) {
                 audio.pause();
-                if (playing == url) playing = "";
+                if (audio.src == url) audio.src = "";
                 else {
-                    playing = url;
                     audio.src = url;
                     audio.play();
                 }
+            }
+            function movie(json) {
+                loading = false;
+                console.log(json);
+                for (var i in json.results) {
+                    img_src = json.results[i].artworkUrl100;
+                    var img = document.createElement('img');
+                    img.setAttribute("src", img_src);
+                    img.setAttribute("onclick", "play('" + json.results[i].previewUrl + "')");
+                    div.appendChild(img);
+                }
+            }
+            function play(url) {
+                var video = document.createElement('video');
+                video.setAttribute("type", "video/x-m4v");
+                video.autoplay = true;
+                video.controls = true;
+                video.setAttribute("src", url);
+                var modal = document.createElement('div');
+                modal.setAttribute("id", "modal");
+                modal.setAttribute("onclick", "delete_modal();");
+                modal.appendChild(video);
+                document.body.appendChild(modal);
+            }
+            function delete_modal() {
+                document.getElementById("modal").remove();
             }
         </script>
     </body>
