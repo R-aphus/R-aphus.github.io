@@ -59,15 +59,15 @@
         <div id="nav">
             <div>CoverPick</div>
             <div>
-                <a onclick="theme(1);">Album</a>
-                <a onclick="theme(2);">Book</a>
-                <a onclick="theme(3);">Movie</a>
+                <a onclick="theme=1;">Album</a>
+                <a onclick="theme=2;">Book</a>
+                <a onclick="theme=3;">Movie</a>
             </div>
         </div>
         <div id="result"></div>
         <script>
             var loading = false;
-            var theme = 1;
+            var theme = 2;
             API(theme);
             var div = document.getElementById("result");
             var img_src = "";
@@ -114,11 +114,8 @@
             }
             function music(page, img_src, audio_src) {
                 audio.pause();
-                if (audio.src == audio_src) audio.src = "";
-                else {
-                    audio.src = audio_src;
-                    audio.play();
-                }
+                audio.src = audio_src;
+                audio.play();
                 var img = document.createElement('img');
                 img.setAttribute("src", img_src);
                 img.setAttribute("id", "modal_img");
@@ -133,7 +130,7 @@
                 loading = false;
                 console.log(json);
                 for (var i in json.results) {
-                    img_src = json.results[i].artworkUrl30.replace("30x30", "250x250");
+                    img_src = json.results[i].artworkUrl30.replace("30x30", "200x200");
                     var img = document.createElement('img');
                     img.setAttribute("src", img_src);
                     img.setAttribute("onclick", "play('" + json.results[i].previewUrl + "')");
@@ -154,6 +151,7 @@
             }
             function delete_modal() {
                 document.getElementById("modal").remove();
+                audio.pause();
             }
         </script>
     </body>
