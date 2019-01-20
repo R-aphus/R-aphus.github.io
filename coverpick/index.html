@@ -101,7 +101,7 @@
                 var img_mem = [];
                 for (var i in json.results) {
                     console.log(json.results[i]);
-                    img_src = json.results[i].artworkUrl30.replace("30x30", "250x250");
+                    img_src = json.results[i].artworkUrl30.replace("30x30", "200x200");
                     if (img_mem.indexOf(img_src) < 0) {
                         img_mem.push(img_src);
                         var img = document.createElement('img');
@@ -131,7 +131,7 @@
                 loading = false;
                 console.log(json);
                 for (var i in json.results) {
-                    img_src = json.results[i].artworkUrl100;
+                    img_src = json.results[i].artworkUrl30.replace("30x30", "250x250");
                     var img = document.createElement('img');
                     img.setAttribute("src", img_src);
                     img.setAttribute("onclick", "play('" + json.results[i].previewUrl + "')");
