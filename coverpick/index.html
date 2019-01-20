@@ -85,19 +85,20 @@
                     script.setAttribute("type", "text/javascript");
                     switch (theme) {
                         case 1:
-                            script.setAttribute("src", "https://itunes.apple.com/search?term=track&media=music&entity=musicTrack&limit=20&callback=album&offset=" + Math.floor(Math.random() * 500) * 20);
+                            script.setAttribute("src", "https://itunes.apple.com/search?term=track&media=music&entity=musicTrack&limit=20&callback=cb_album&offset=" + Math.floor(Math.random() * 500) * 20);
                             break;
                         case 2:
-                            script.setAttribute("src", "https://itunes.apple.com/search?term=movie&media=movie&limit=20&callback=movie&offset=" + Math.floor(Math.random() * 250) * 20);
+                            script.setAttribute("src", "https://itunes.apple.com/search?term=book&media=ebook&limit=20&callback=cb_book&offset=" + Math.floor(Math.random() * 25000) * 20);
                             break;
                         case 3:
+                            script.setAttribute("src", "https://itunes.apple.com/search?term=movie&media=movie&limit=20&callback=cb_movie&offset=" + Math.floor(Math.random() * 250) * 20);
                             break;
                         default:
                     }
                     document.body.appendChild(script);
                 }
             }
-            function album(json) {
+            function cb_album(json) {
                 loading = false;
                 var img_mem = [];
                 for (var i in json.results) {
@@ -107,12 +108,12 @@
                         img_mem.push(img_src);
                         var img = document.createElement('img');
                         img.setAttribute("src", img_src);
-                        img.setAttribute("onclick", "music('" + json.results[i].collectionViewUrl + "','" + img_src.replace("200x200", "1000x1000") + "','" + json.results[i].previewUrl + "')");
+                        img.setAttribute("onclick", "album('" + json.results[i].collectionViewUrl + "','" + img_src.replace("200x200", "1000x1000") + "','" + json.results[i].previewUrl + "')");
                         div.appendChild(img);
                     }
                 }
             }
-            function music(page, img_src, audio_src) {
+            function album(page, img_src, audio_src) {
                 audio.pause();
                 audio.src = audio_src;
                 audio.play();
@@ -126,18 +127,40 @@
                 modal.appendChild(img);
                 document.body.appendChild(modal);
             }
-            function movie(json) {
+            function cb_book(json) {
+                loading = false;
+                for (var i in json.results) {
+                    console.log(json.results[i]);
+                    img_src = json.results[i].artworkUrl60.replace("60x60", "200x200");
+                    var img = document.createElement('img');
+                    img.setAttribute("src", img_src);
+                    img.setAttribute("onclick", "book('" + json.results[i].trackViewUrl + "','" + img_src.replace("200x200", "1000x1000") + "')");
+                    div.appendChild(img);
+                }
+            }
+            function book(page, img_src) {
+                var img = document.createElement('img');
+                img.setAttribute("src", img_src);
+                img.setAttribute("id", "modal_img");
+                img.setAttribute("onclick" , "window.open('" + page + "', null, \"menubar=yes\");");
+                var modal = document.createElement('div');
+                modal.setAttribute("id", "modal");
+                modal.setAttribute("onclick", "delete_modal();");
+                modal.appendChild(img);
+                document.body.appendChild(modal);
+            }
+            function cb_movie(json) {
                 loading = false;
                 console.log(json);
                 for (var i in json.results) {
                     img_src = json.results[i].artworkUrl30.replace("30x30", "200x200");
                     var img = document.createElement('img');
                     img.setAttribute("src", img_src);
-                    img.setAttribute("onclick", "play('" + json.results[i].previewUrl + "')");
+                    img.setAttribute("onclick", "movie('" + json.results[i].previewUrl + "')");
                     div.appendChild(img);
                 }
             }
-            function play(url) {
+            function movie(url) {
                 var video = document.createElement('video');
                 video.setAttribute("type", "video/x-m4v");
                 video.autoplay = true;
