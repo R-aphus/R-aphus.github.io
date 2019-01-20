@@ -106,7 +106,7 @@
                         img_mem.push(img_src);
                         var img = document.createElement('img');
                         img.setAttribute("src", img_src);
-                        img.setAttribute("onclick", "music('" + img_src + "','" + json.results[i].previewUrl + "')");
+                        img.setAttribute("onclick", "music('" + img_src.replace("200x200", "1000x1000") + "','" + json.results[i].previewUrl + "')");
                         div.appendChild(img);
                     }
                 }
