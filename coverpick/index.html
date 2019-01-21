@@ -163,7 +163,7 @@ function Modal(json_txt) {
 //        video.controls = true;
         video.setAttribute("src", json.preview);
         video.addEventListener("ended", function(){
-            window.open(json.page);
+            window.location.href = json.page;
             DeleteModal();
         }, false);
         modal.appendChild(video);
