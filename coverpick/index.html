@@ -146,7 +146,7 @@ function Modal(json_txt) {
     var json = JSON.parse(json_txt);
     var modal = document.createElement('div');
     modal.setAttribute("id", "modal");
-    modal.setAttribute("onclick", "window.open('" + json.page + "');DeleteModal();");
+    modal.setAttribute("onclick", "DeleteModal();");
     if (theme == 1) {
         audio.pause();
         audio.src = json.preview;
@@ -189,25 +189,6 @@ function DeleteModal() {
     document.getElementById("modal").remove();
     if (theme == 1) audio.pause();
 }
-window.addEventListener("load", function() {
-    var touchStartX, touchStartY,
-        touchMoveX, touchMoveY;
-    window.addEventListener("touchstart", function(event) {
-        event.preventDefault();
-        touchStartX = event.touches[0].pageX;
-        touchStartY = event.touches[0].pageY;
-    }, false);
-    window.addEventListener("touchmove", function(event) {
-        event.preventDefault();
-        touchMoveX = event.changedTouches[0].pageX;
-        touchMoveY = event.changedTouches[0].pageY;
-    }, false);
-    window.addEventListener("touchend", function() {
-        var deltaX = touchStartX - touchMoveX;
-        var deltaY = touchStartY - touchMoveY;
-        if (deltaX * deltaX + deltaY * deltaY >= 500) DeleteModal();
-    }, false);
-}, false);
         </script>
     </body>
 </html>
