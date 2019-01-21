@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta property="og:title" content="CoverPick" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://r-aphus.github.io/coverpick/" />
+        <meta property="og:image" content="https://r-aphus.github.io/coverpick/icon.png" />
+        <meta property="og:site_name" content="CoverPick" />
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="https://r-aphus.github.io/coverpick/">
+        <meta name="twitter:title" content="CoverPick">
+        <meta name="twitter:image" content="https://r-aphus.github.io/coverpick/icon.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="apple-mobile-web-app-title" content="CoverPick!">
+        <link rel="apple-touch-icon" href="https://r-aphus.github.io/coverpick/icon.png" sizes="637×518"/>
+        <title>CoverPick</title>
+        <style>
+            body {
+                position: relative;
+                margin: 0;
+                margin-top: 5vh;
+                padding: 0;
+                background: #FFC778;
+            }
+            img {
+                width: 33.333vw;
+                height: auto;
+                vertical-align: bottom;
+            }
+            video, #modal_img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+            #nav {
+                position: fixed;
+                display: flex;
+                top: 0;
+                height: 5vh;
+                width: 100vw;
+                background: #FFC778;
+            }
+            #modal {
+                position: fixed;
+                top: 0;
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #0000007a;
+            }
+        </style>
+	</head>
+	<body>
+        <div id="nav">
+            <div>CoverPick</div>
+            <div>
+                <a onclick="theme=1;">Album</a>
+                <a onclick="theme=2;">Book</a>
+                <a onclick="theme=3;">Movie</a>
+            </div>
+        </div>
+        <div id="goods"></div>
+        <script>
+            var loading = false;
+            var theme = 1;
+            API(theme);
+            var div = document.getElementById("goods");
+            var img_src = "";
+            var audio = new Audio();
+            audio.volume = 0.2;
+            
+            window.addEventListener('scroll', () => {
+                if (document.scrollingElement.scrollTop > (document.body.clientHeight - window.innerHeight * 1.5)) API(theme);
+            }, false);
+
+            function API(theme) {
+                if (loading == false) {
+                    loading = true;
+                    var script = document.createElement('script');
+                    script.setAttribute("type", "text/javascript");
+                    switch (theme) {
+                        case 1:
+                            script.setAttribute("src", "https://itunes.apple.com/search?term=track&media=music&entity=musicTrack&limit=20&callback=cb_album&offset=" + Math.floor(Math.random() * 500) * 20);
+                            break;
+                        case 2:
+                            script.setAttribute("src", "https://itunes.apple.com/search?term=book&media=ebook&limit=20&callback=cb_book&offset=" + Math.floor(Math.random() * 25000) * 20);
+                            break;
+                        case 3:
+                            script.setAttribute("src", "https://itunes.apple.com/search?term=movie&media=movie&limit=20&callback=cb_movie&offset=" + Math.floor(Math.random() * 250) * 20);
+                            break;
+                        default:
+                    }
+                    document.body.appendChild(script);
+                }
+            }
+            function cb_album(json) {
+                loading = false;
+                var img_mem = [];
+                for (var i in json.results) {
+                    console.log(json.results[i]);
+                    img_src = json.results[i].artworkUrl30.replace("30x30", "200x200");
+                    if (img_mem.indexOf(img_src) < 0) {
+                        img_mem.push(img_src);
+                        var img = document.createElement('img');
+                        img.setAttribute("src", img_src);
+                        img.setAttribute("onclick", "album('" + json.results[i].collectionViewUrl + "','" + img_src.replace("200x200", "1000x1000") + "','" + json.results[i].previewUrl + "')");
+                        div.appendChild(img);
+                    }
+                }
+            }
+            function album(page, img_src, audio_src) {
+                audio.pause();
+                audio.src = audio_src;
+                audio.play();
+                var img = document.createElement('img');
+                img.setAttribute("src", img_src);
+                img.setAttribute("id", "modal_img");
+//                img.setAttribute("onclick" , "window.open('" + page + "', null, \"menubar=yes\");");
+                var modal = document.createElement('div');
+                modal.setAttribute("id", "modal");
+                modal.setAttribute("onclick", "delete_modal();");
+                modal.appendChild(img);
+                document.body.appendChild(modal);
+            }
+            function cb_book(json) {
+                loading = false;
+                for (var i in json.results) {
+                    console.log(json.results[i]);
+                    img_src = json.results[i].artworkUrl60.replace("60x60", "200x200");
+                    var img = document.createElement('img');
+                    img.setAttribute("src", img_src);
+                    img.setAttribute("onclick", "book('" + json.results[i].trackViewUrl + "','" + img_src.replace("200x200", "1000x1000") + "')");
+                    div.appendChild(img);
+                }
+            }
+            function book(page, img_src) {
+                var img = document.createElement('img');
+                img.setAttribute("src", img_src);
+                img.setAttribute("id", "modal_img");
+                img.setAttribute("onclick" , "window.open('" + page + "', null, \"menubar=yes\");");
+                var modal = document.createElement('div');
+                modal.setAttribute("id", "modal");
+                modal.setAttribute("onclick", "delete_modal();");
+                modal.appendChild(img);
+                document.body.appendChild(modal);
+            }
+            function cb_movie(json) {
+                loading = false;
+                console.log(json);
+                for (var i in json.results) {
+                    img_src = json.results[i].artworkUrl30.replace("30x30", "200x200");
+                    var img = document.createElement('img');
+                    img.setAttribute("src", img_src);
+                    img.setAttribute("onclick", "movie('" + json.results[i].previewUrl + "')");
+                    div.appendChild(img);
+                }
+            }
+            function movie(url) {
+                var video = document.createElement('video');
+                video.setAttribute("type", "video/x-m4v");
+                video.autoplay = true;
+                video.controls = true;
+                video.setAttribute("src", url);
+                var modal = document.createElement('div');
+                modal.setAttribute("id", "modal");
+                modal.setAttribute("onclick", "delete_modal();");
+                modal.appendChild(video);
+                document.body.appendChild(modal);
+            }
+            function delete_modal() {
+                document.getElementById("modal").remove();
+                audio.pause();
+            }
+        </script>
+    </body>
+</html>
