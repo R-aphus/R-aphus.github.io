@@ -152,7 +152,7 @@ function Modal(json_txt) {
         audio.src = json.preview;
         audio.play();
         audio.addEventListener("ended", function(){
-            window.open(json.page);
+            window.location.href = json.page;
             DeleteModal();
         }, false);
     }
