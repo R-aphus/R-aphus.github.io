@@ -78,9 +78,6 @@ var div = document.getElementById("goods");
 var img_src = "";
 var audio = new Audio();
 audio.volume = 0.2;
-audio.addEventListener("ended", function(){
-    DeleteModal();
-}, false);
 
 AppendsGoods();
 window.addEventListener('scroll', () => {
@@ -149,11 +146,15 @@ function Modal(json_txt) {
     var json = JSON.parse(json_txt);
     var modal = document.createElement('div');
     modal.setAttribute("id", "modal");
-    modal.setAttribute("onclick", "DeleteModal();");
+    modal.setAttribute("onclick", "window.open('" + json.page + "');DeleteModal();");
     if (theme == 1) {
         audio.pause();
         audio.src = json.preview;
         audio.play();
+        audio.addEventListener("ended", function(){
+            window.open(json.page);
+            DeleteModal();
+        }, false);
     }
     if (theme == 3) {
         var video = document.createElement('video');
@@ -162,6 +163,7 @@ function Modal(json_txt) {
 //        video.controls = true;
         video.setAttribute("src", json.preview);
         video.addEventListener("ended", function(){
+            window.open(json.page);
             DeleteModal();
         }, false);
         modal.appendChild(video);
@@ -187,6 +189,25 @@ function DeleteModal() {
     document.getElementById("modal").remove();
     if (theme == 1) audio.pause();
 }
+window.addEventListener("load", function() {
+    var touchStartX, touchStartY,
+        touchMoveX, touchMoveY;
+    window.addEventListener("touchstart", function(event) {
+        event.preventDefault();
+        touchStartX = event.touches[0].pageX;
+        touchStartY = event.touches[0].pageY;
+    }, false);
+    window.addEventListener("touchmove", function(event) {
+        event.preventDefault();
+        touchMoveX = event.changedTouches[0].pageX;
+        touchMoveY = event.changedTouches[0].pageY;
+    }, false);
+    window.addEventListener("touchend", function() {
+        var deltaX = touchStartX - touchMoveX;
+        var deltaY = touchStartY - touchMoveY;
+        if (deltaX * deltaX + deltaY * deltaY >= 500) DeleteModal();
+    }, false);
+}, false);
         </script>
     </body>
 </html>
