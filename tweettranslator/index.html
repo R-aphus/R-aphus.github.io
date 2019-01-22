@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta charset="utf-8">
+        <title>TweetTranslator</title>
+        <style type="text/css">
+            html, body {
+                width: 100vw;
+                height: 100vh;
+                font-size: 15vw;
+                text-align: center;
+                margin: 0;
+            }
+        </style>
+	</head>
+	<body>
+        <textarea id="textarea"></textarea>
+        <a onclick="tweet();">Tweet</a>
+        <script>
+            function tweet() {
+                var textarea = document.getElementById("textarea");
+                fetch ("https://script.google.com/macros/s/AKfycbz5hJ143G4_naYOxFghGbHO_cNN8JINSX4VZSDWk8narLtfUec/exec" + "?text=" + encodeURI(textarea.value) + "&source=ja&target=en")
+                    .then (function(response) {
+                        return response.text();
+                    })
+                    .then (function(text) {
+                        window.open("https://twitter.com/intent/tweet?text=" + textarea.value + "%0a%23Translation%0a" + text);
+                    });
+            }
+        </script>
+    </body>
+</html>
