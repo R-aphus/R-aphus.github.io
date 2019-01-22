@@ -38,10 +38,12 @@
             #nav {
                 position: fixed;
                 display: flex;
+                justify-content: space-around;
+                align-items: center;
                 top: 0;
                 height: 5vh;
                 width: 100vw;
-                background: #FFC778;
+                background: #FFFFFF;
             }
             #modal {
                 position: fixed;
@@ -62,8 +64,8 @@
 	</head>
 	<body>
         <div id="nav">
-            <div>CoverPick</div>
-            <div>
+            <div style="text-align: left;">CoverPick</div>
+            <div style="text-align: right;">
                 <a onclick="Theme(1);">Album</a>
                 <a onclick="Theme(2);">Book</a>
                 <a onclick="Theme(3);">Movie</a>
