@@ -48,7 +48,7 @@
             }
             #modal {
                 position: fixed;
-                top: 0;
+                top: 6vh;
                 width: 100vw;
                 height: 100vh;
                 justify-content: center;
@@ -143,6 +143,7 @@ function CB(json) {
     AppendsGoods();
 }
 function Theme(num) {
+    DeleteModal();
     theme = num;
     goods = [];
     div.remove();
@@ -180,7 +181,9 @@ function Modal(json_txt) {
     document.body.appendChild(modal);
 }
 function DeleteModal() {
-    document.getElementById("modal").remove();
+    try {
+        document.getElementById("modal").remove();
+    } catch (e) {}
     if (theme == 1) audio.pause();
 }
         </script>
