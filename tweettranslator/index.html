@@ -27,7 +27,7 @@
                         return response.text();
                     })
                     .then (function(text) {
-                        window.open("https://twitter.com/intent/tweet?text=" + textarea.value + "%0a%23Translation%0a" + text);
+                        location.href = "https://twitter.com/intent/tweet?text=" + textarea.value + "%0a%23Translation%0a" + text;
                     });
             }
         </script>
