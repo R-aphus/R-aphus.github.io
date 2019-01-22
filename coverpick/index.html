@@ -79,6 +79,9 @@ var img_src = "";
 var img_mem = [];
 var audio = new Audio();
 audio.volume = 0.2;
+audio.addEventListener("ended", function(){
+    DeleteModal();
+}, false);
 
 AppendsGoods();
 window.addEventListener('scroll', () => {
@@ -154,10 +157,6 @@ function Modal(json_txt) {
         audio.pause();
         audio.src = json.preview;
         audio.play();
-        audio.addEventListener("ended", function(){
-            window.location.href = json.page;
-            DeleteModal();
-        }, false);
     }
     if (theme == 3) {
         var video = document.createElement('video');
@@ -166,7 +165,6 @@ function Modal(json_txt) {
 //        video.controls = true;
         video.setAttribute("src", json.preview);
         video.addEventListener("ended", function(){
-            window.location.href = json.page;
             DeleteModal();
         }, false);
         modal.appendChild(video);
