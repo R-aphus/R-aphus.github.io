@@ -76,6 +76,7 @@ var loading = false;
 var theme = 1;
 var div = document.getElementById("goods");
 var img_src = "";
+var img_mem = [];
 var audio = new Audio();
 audio.volume = 0.2;
 
@@ -93,10 +94,13 @@ function AppendsGoods() {
         } else {
             json = goods.shift();
             console.log(json);
-            var img = document.createElement('img');
-            img.setAttribute("src", json.img);
-            img.setAttribute("onclick", "Modal('" + JSON.stringify(json) + "');");
-            div.appendChild(img);
+            if (img_mem.indexOf(json.img) < 0) {
+                img_mem.push(json.img);
+                var img = document.createElement('img');
+                img.setAttribute("src", json.img);
+                img.setAttribute("onclick", "Modal('" + JSON.stringify(json) + "');");
+                div.appendChild(img);
+            }
         }
     }
 }
@@ -124,8 +128,7 @@ function CB(json) {
     loading = false;
     for (var i in json.results) {
         var goodsData = {};
-//        goodsData.title = json.results[i].trackName;
-        goodsData.img = json.results[i].artworkUrl100.replace("100x100", "200x200");
+        goodsData.img = json.results[i].artworkUrl100.replace("100x100", "150x150");
         if (theme != 3) goodsData.modal_img = json.results[i].artworkUrl100.replace("100x100", "1000x1000");
         goodsData.page = json.results[i].collectionViewUrl;
         if (theme != 2) goodsData.preview = json.results[i].previewUrl;
@@ -173,17 +176,7 @@ function Modal(json_txt) {
         img.setAttribute("id", "modal_img");
         modal.appendChild(img);
     }
-/*    var title = document.createElement('div');
-    title.innerText = json.title;
-    title.setAttribute("onclick" , "window.open('" + json.page + "');");
-    title.setAttribute("id" , "title");
-    modal.appendChild(title);
-    var link = document.createElement('div');
-    link.innerText = "iTunes";
-    link.setAttribute("onclick" , "window.open('" + json.page + "');");
-    title.setAttribute("id" , "link");
-    modal.appendChild(link);
-*/    document.body.appendChild(modal);
+    document.body.appendChild(modal);
 }
 function DeleteModal() {
     document.getElementById("modal").remove();
