@@ -81,6 +81,7 @@ var theme = 1;
 var div = document.getElementById("goods");
 var img_src = "";
 var img_mem = [];
+var view_mem = [];
 var audio = new Audio();
 audio.volume = 0.2;
 audio.addEventListener("ended", function(){
@@ -155,6 +156,10 @@ function Theme(num) {
 }
 function Modal(json_txt) {
     var json = JSON.parse(json_txt);
+    if (view_mem.indexOf(json.img) >= 0) {
+        window.open(json.page);
+        return;
+    } else view_mem.push(json.img);
     var modal = document.createElement('div');
     modal.setAttribute("id", "modal");
     modal.setAttribute("onclick", "DeleteModal();");
