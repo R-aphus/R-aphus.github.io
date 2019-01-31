@@ -28,31 +28,15 @@
         <style type="text/css">
             html, body {
                 width: 100vw;
-                height: 200vh;
-                font-size: 15vw;
+                height: 100vh;
+                font-size: 18vw;
                 text-align: center;
                 margin: 0;
-            }
-            #page1, #page2 {
-                width: 100vw;
-                height: 100vh;
-                line-height: 100vh;
-            }
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
             }
         </style>
 	</head>
 	<body>
-        <div id="page1">
-            <div>loading...</div>
-        </div>
-        <div id="page2">
-            <div>What's this?</div>
-            <img src="./Untitled Diagram.svg">
-        </div>
+        <div id="result">calclating...</div>
         <script>
             fetch('https://ipapi.co/json/')
                 .then(function(response) {
@@ -67,23 +51,20 @@
                         .then(function(json) {
                             var rain = 0;
                             var max = 0;
-                            var dt = (new Date()).getTime() / 1000 + 60 * 60 * 12;
                             for (var i in json.list) {
-                                if (json.list[i].dt < dt) {
-                                    try {
-                                        rain = json.list[i].rain['3h'];
-                                        if (!isNaN(rain) && rain > max) max = rain;
-                                    } catch(e) {}
-                                } else break;
+                                try {
+                                    rain = json.list[i].rain['3h'];
+                                    if (!isNaN(rain) && rain > max) max = rain;
+                                } catch(e) {}
                             }
-                            var page1 = document.getElementById("page1")
-                            page1.style.color = "#FFFFFF";
+                            var result = document.getElementById("result")
+                            result.style.color = "#FFFFFF";
                             if (max >= 0.5 * 3.0) {
-                                page1.innerText = "umbrella!";
-                                page1.style.background = "linear-gradient(to bottom, #1488cc, #2b32b2)";
+                                result.innerText = "umbrella!";
+                                result.style.background = "linear-gradient(to top, #1488cc, #2b32b2)";
                             } else {
-                                page1.innerText = "sunny!";
-                                page1.style.background = "linear-gradient(to top, #fdc830, #f37335)";
+                                result.innerText = "sunny!";
+                                result.style.background = "linear-gradient(to top, #fdc830, #f37335)";
                             }
                         })
                 });
