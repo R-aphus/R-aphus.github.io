@@ -33,6 +33,7 @@
                 font-size: 18vw;
                 text-align: center;
                 margin: 0;
+                overflow: hidden;
             }
         </style>
 	</head>
@@ -68,6 +69,8 @@
                             }
                         })
                 });
+                document.addEventListener('scroll', function(e) {e.preventDefault();}, {passive: false});
+                document.addEventListener('touchmove', function(e) {e.preventDefault();}, {passive: false});
         </script>
     </body>
 </html>
