@@ -36,7 +36,7 @@
         </style>
 	</head>
 	<body>
-        <div id="result">calclating...</div>
+        calclating...
         <script>
             fetch('https://ipapi.co/json/')
                 .then(function(response) {
@@ -57,14 +57,13 @@
                                     if (!isNaN(rain) && rain > max) max = rain;
                                 } catch(e) {}
                             }
-                            var result = document.getElementById("result")
-                            result.style.color = "#FFFFFF";
+                            document.body.style.color = "#FFFFFF";
                             if (max >= 0.5 * 3.0) {
-                                result.innerText = "umbrella!";
-                                result.style.background = "linear-gradient(to top, #1488cc, #2b32b2)";
+                                document.body.innerText = "umbrella!";
+                                document.body.style.background = "linear-gradient(to top, #1488cc, #2b32b2)";
                             } else {
-                                result.innerText = "sunny!";
-                                result.style.background = "linear-gradient(to top, #fdc830, #f37335)";
+                                document.body.innerText = "sunny!";
+                                document.body.style.background = "linear-gradient(to top, #fdc830, #f37335)";
                             }
                         })
                 });
