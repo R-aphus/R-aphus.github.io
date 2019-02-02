@@ -34,7 +34,7 @@
                 height: 92vh;
                 width: 100vw;
                 line-height: 92vh;
-                font-size: 18vw;
+                font-size: 21vw;
                 text-align: center;
             }
             #nav {
@@ -49,14 +49,17 @@
                 background: #000000;
                 color: #FFFFFF;
             }
+            #nav > div img {
+                cursor: pointer;
+            }
         </style>
 	</head>
 	<body>
         <div id="result">calclating...</div>
         <div id="nav">
-            <a>Top</a>
-            <a>About</a>
-            <a>Share</a>
+            <div onclick="window.open('https://r-aphus.github.io');">Top</div>
+            <div onclick="window.open('https://r-aphus.github.io/umbrella/about.html');">About</div>
+            <img onclick="window.open('https://twitter.com/intent/tweet?text=Umbrella%21%0d%0ahttps%3a%2f%2fr%2daphus%2egithub%2eio%2fumbrella%2f');">
         </div>
         <script>
             fetch('https://ipapi.co/json/')
