@@ -27,45 +27,67 @@
         <title>Umbrella!</title>
         <style type="text/css">
             html, body {
+                overflow: hidden;
+                margin: 0;
+            }
+            #result {
+                height: 92vh;
                 width: 100vw;
-                height: 100vh;
-                line-height: 100vh;
+                line-height: 92vh;
                 font-size: 18vw;
                 text-align: center;
-                margin: 0;
-                overflow: hidden;
+            }
+            #nav {
+                position: fixed;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                bottom: 0;
+                height: 8vh;
+                width: 100vw;
+                font-size: 3vh;
+                background: #000000;
+                color: #FFFFFF;
             }
         </style>
 	</head>
 	<body>
-        calclating...
+        <div id="result">calclating...</div>
+        <div id="nav">
+            <a>Top</a>
+            <a>About</a>
+            <a>Share</a>
+        </div>
         <script>
             fetch('https://ipapi.co/json/')
                 .then(function(response) {
                     return response.json();
                 })
                 .then(function(json) {
-                    var appid = "d1c78d7630a66a0281cee9583cff3a71";
+                    const appid = "d1c78d7630a66a0281cee9583cff3a71";
                     fetch('https://api.openweathermap.org/data/2.5/forecast' + "?lat=" + json.latitude + "&lon=" + json.longitude + "&appid=" + appid)
                         .then(function(response) {
                             return response.json();
                         })
                         .then(function(json) {
-                            var rain = 0;
-                            var max = 0;
+                            let rain = 0;
+                            let max = 0;
+                            const dt = (new Date()).getTime() / 1000 + 60 * 60 * 18;
                             for (var i in json.list) {
+                                if (json.list[i].dt > dt) break;
                                 try {
                                     rain = json.list[i].rain['3h'];
                                     if (!isNaN(rain) && rain > max) max = rain;
                                 } catch(e) {}
                             }
-                            document.body.style.color = "#FFFFFF";
+                            const result = document.getElementById("result");
+                            result.style.color = "#FFFFFF";
                             if (max >= 0.5 * 3.0) {
-                                document.body.innerText = "umbrella!";
-                                document.body.style.background = "linear-gradient(to top, #1488cc, #2b32b2)";
+                                result.innerText = "umbrella!";
+                                result.style.background = "linear-gradient(to top, #1488cc, #2b32b2)";
                             } else {
-                                document.body.innerText = "sunny!";
-                                document.body.style.background = "linear-gradient(to top, #fdc830, #f37335)";
+                                result.innerText = "sunny!";
+                                result.style.background = "linear-gradient(to top, #fdc830, #f37335)";
                             }
                         })
                 });
