@@ -26,13 +26,13 @@ public class CoverPick {
                     if (!((y > x && y < -x) || (y > -x && y < x))) {
                         bright = 0;
                     }
-                    if (x2 + y2 < l * l / 4.0f / 121.0f) {
-                        bright = (int)(255.0f * Math.cos(2.0f * Math.PI * Math.sqrt(x2 + y2) / (l / 2.0f / 11.0f) + Math.PI));
+                    if (x2 + y2 < l * l / 4.0f / 64.0f) {
+                        bright = (int)(255.0f * Math.cos(2.0f * Math.PI * Math.sqrt(x2 + y2) / (l / 2.0f / 8.0f) + Math.PI));
                         if (bright < 0) bright = 0;
                         g.setColor(new Color(bright, bright, bright));
-                        g.drawLine(i, j, i, j);    
+                        g.drawLine(i, j, i, j);
                     } else {
-                        bright *= Math.cos(2.0f * Math.PI * Math.sqrt(x2 + y2) / (l / 2.0f / 11.0f) + Math.PI);
+                        bright *= Math.cos(2.0f * Math.PI * Math.sqrt(x2 + y2) / (l / 2.0f / 8.0f) + Math.PI);
                         if (bright < 0) bright = 0;
                         if (x2 + y2 > l * l / 4.0f) bright = 0;
                         g.setColor(new Color(bright, bright, bright));

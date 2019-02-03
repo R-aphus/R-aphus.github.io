@@ -2,9 +2,9 @@
   "name": "Unbrella!",
   "short-name": "Unbrella!",
   "icons": [{
-    "src": "./icon.svg",
+    "src": "./icon.png",
     "sizes": "any",
-    "type": "image/svg"
+    "type": "image/png"
   }],
   "start_url": "https://r-aphus.github.io/umbrella/",
   "display": "standalone"
