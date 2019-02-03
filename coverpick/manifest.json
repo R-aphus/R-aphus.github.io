@@ -7,5 +7,6 @@
       "type": "image/png"
     }],
     "start_url": "https://r-aphus.github.io/coverpick/",
+    "background_color": "#000000",
     "display": "standalone"
   }
