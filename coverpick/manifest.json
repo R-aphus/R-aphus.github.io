@@ -1,0 +1,11 @@
+{
+    "name": "CoverPick!",
+    "short-name": "CoverPick!",
+    "icons": [{
+      "src": "./icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }],
+    "start_url": "https://r-aphus.github.io/coverpick/",
+    "display": "standalone"
+  }
