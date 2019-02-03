@@ -15,7 +15,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="apple-mobile-web-app-title" content="CoverPick">
-        <link rel="apple-touch-icon" href="https://r-aphus.github.io/coverpick/icon.png" sizes="180x180"/>
+        <link rel="apple-touch-icon" href="https://r-aphus.github.io/coverpick/icon.png" sizes="637×518"/>
         <title>CoverPick</title>
         <style>
             body {
@@ -30,7 +30,7 @@
                 height: auto;
                 vertical-align: bottom;
             }
-            video, #modal_img {
+            #modal_img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
@@ -56,141 +56,83 @@
                 align-items: center;
                 background: #000000c7;
             }
-            #title, #link {
-                height: 10vh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
         </style>
 	</head>
 	<body>
         <div id="nav">
-            <div style="text-align: left;">CoverPick</div>
-            <div style="text-align: right;">
-                <a onclick="Theme(1);">Album</a>
-                <a onclick="Theme(2);">Book</a>
-                <a onclick="Theme(3);">Movie</a>
-            </div>
+            <div>CoverPick</div>
+            <div>region</div>
         </div>
-        <div id="goods"></div>
+        <div id="main"></div>
         <script>
-var goods = [];
-var loading = false;
-var theme = 1;
-var div = document.getElementById("goods");
-var img_src = "";
-var img_mem = [];
-var view_mem = [];
-var audio = new Audio();
+let loading = false;
+const items = [];
+const modal_items = [];
+const append_num = 20;
+const limit = 200;
+const main = document.getElementById("main");
+const audio = new Audio();
+API(50);
 audio.volume = 0.2;
 audio.addEventListener("ended", function(){
     DeleteModal();
 }, false);
-
-AppendsGoods();
 window.addEventListener('scroll', () => {
-    if (loading == false && document.scrollingElement.scrollTop > (document.body.clientHeight - window.innerHeight * 1.5)) AppendsGoods();
+    if (loading == false && document.scrollingElement.scrollTop > (document.body.clientHeight - window.innerHeight * 1.5)) AppendItems();
 }, false);
-
-function AppendsGoods() {
-    var json;
-    for (var i = 0; i < 20; i++) {
-        if (goods.length == 0) {
-            API();
-            break;
-        } else {
-            json = goods.shift();
-            console.log(json);
-            if (img_mem.indexOf(json.img) < 0) {
-                img_mem.push(json.img);
-                var img = document.createElement('img');
-                img.setAttribute("src", json.img);
-                img.setAttribute("onclick", "Modal('" + JSON.stringify(json) + "');");
-                div.appendChild(img);
-            }
-        }
-    }
-}
-function API() {
-    if (loading == false) {
-        loading = true;
-        var script = document.createElement('script');
-        script.setAttribute("type", "text/javascript");
-        switch (theme) {
-            case 1:
-                script.setAttribute("src", "https://itunes.apple.com/search?term=track&media=music&entity=musicTrack&limit=200&callback=CB&offset=" + Math.floor(Math.random() * 50) * 200);
-                break;
-            case 2:
-                script.setAttribute("src", "https://itunes.apple.com/search?term=book&media=ebook&limit=200&callback=CB&offset=" + Math.floor(Math.random() * 2500) * 200);
-                break;
-            case 3:
-                script.setAttribute("src", "https://itunes.apple.com/search?term=movie&media=movie&limit=200&callback=CB&offset=" + Math.floor(Math.random() * 25) * 200);
-                break;
-            default:
-        }
-        document.body.appendChild(script);
-    }
-}
 function CB(json) {
     loading = false;
-    for (var i in json.results) {
-        var goodsData = {};
-        goodsData.img = json.results[i].artworkUrl100.replace("100x100", "150x150");
-        if (theme != 3) goodsData.modal_img = json.results[i].artworkUrl100.replace("100x100", "1000x1000");
-        goodsData.page = json.results[i].collectionViewUrl;
-        if (theme != 2) goodsData.preview = json.results[i].previewUrl;
-        goods.push(goodsData);
+    for (let i in json.results) {
+        const item = {};
+        item.img = json.results[i].artworkUrl100.replace("100x100", "150x150");
+        if (!items.some(elm => {return elm.img == item.img})) {
+            item.modal_img = json.results[i].artworkUrl100.replace("100x100", "1000x1000");
+            item.preview = json.results[i].previewUrl;
+            item.page = json.results[i].collectionViewUrl;
+            items.push(item);
+        }
     }
-    AppendsGoods();
+    AppendItems();
 }
-function Theme(num) {
-    DeleteModal();
-    theme = num;
-    goods = [];
-    div.remove();
-    div = document.createElement('div');
-    div.setAttribute("id", "goods");
-    document.body.appendChild(div);
-    AppendsGoods();
-}
-function Modal(json_txt) {
-    var json = JSON.parse(json_txt);
-    if (view_mem.indexOf(json.img) >= 0) {
-        window.open(json.page);
+function AppendItems() {
+    if (items.length < append_num) {
+        API(limit);
         return;
-    } else view_mem.push(json.img);
-    var modal = document.createElement('div');
+    }
+    for (let i = 0; i < append_num; i++) {
+        const item = items.shift();
+        const img = document.createElement("img");
+        img.setAttribute("src", item.img);
+        img.setAttribute("onclick", "Modal('" + item.img + "','" + item.modal_img + "','" + item.preview + "','" + item.page + "');");
+        main.appendChild(img);
+    }
+}
+function API(limit) {
+    if (loading) return;
+    loading = true;
+    const script = document.createElement("script");
+    script.setAttribute("src", "https://itunes.apple.com/search?term=track&media=music&entity=musicTrack&limit=" + limit + "&callback=CB&offset=" + Math.floor(Math.random() * (10000 / limit)) * limit);
+    document.body.appendChild(script);
+}
+function Modal(img, modal_img, preview, page) {
+    if (modal_items.indexOf(img) >= 0) {
+        window.open(page);
+        return;
+    }
+    modal_items.push(img);
+    audio.src = preview;
+    audio.play();
+    const modal = document.createElement("div");
     modal.setAttribute("id", "modal");
     modal.setAttribute("onclick", "DeleteModal();");
-    if (theme == 1) {
-        audio.pause();
-        audio.src = json.preview;
-        audio.play();
-    }
-    if (theme == 3) {
-        var video = document.createElement('video');
-        video.setAttribute("type", "video/x-m4v");
-        video.autoplay = true;
-//        video.controls = true;
-        video.setAttribute("src", json.preview);
-        video.addEventListener("ended", function(){
-            DeleteModal();
-        }, false);
-        modal.appendChild(video);
-    } else {
-        var img = document.createElement('img');
-        img.setAttribute("src", json.modal_img);
-        img.setAttribute("id", "modal_img");
-        modal.appendChild(img);
-    }
-    document.body.appendChild(modal);
+    const image = document.createElement('img');
+    image.setAttribute("src", modal_img);
+    image.setAttribute("id", "modal_img");
+    modal.appendChild(img);
 }
 function DeleteModal() {
-    try {
-        document.getElementById("modal").remove();
-    } catch (e) {}
-    if (theme == 1) audio.pause();
+    document.getElementById("modal").remove();
+    audio.pause();
 }
         </script>
     </body>
