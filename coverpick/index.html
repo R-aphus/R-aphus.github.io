@@ -128,7 +128,8 @@ function Modal(img, modal_img, preview, page) {
     const image = document.createElement('img');
     image.setAttribute("src", modal_img);
     image.setAttribute("id", "modal_img");
-    modal.appendChild(img);
+    modal.appendChild(image);
+    document.body.appendChild(modal);
 }
 function DeleteModal() {
     document.getElementById("modal").remove();
