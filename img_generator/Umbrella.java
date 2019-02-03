@@ -25,10 +25,6 @@ public class Umbrella {
                     x2 = x * x;
                     y2 = y * y;
                     r2 = x2 + y2;
-                    if (r2 <= R2 * 9.0f / 16.0f) {
-//                        flag = true;
-                    } else {
-                    }
                     if (flag) {
                         g.setColor(new Color(
                             (Top2.getRed() * (l - j) + Bottom2.getRed() * j) / l,
