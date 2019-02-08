@@ -50,18 +50,21 @@
                 bottom: 8vh;
                 width: 100vw;
                 height: 100vh;
+                display: flex;
                 justify-content: center;
                 align-items: center;
                 background: #000000c7;
+                flex-wrap: wrap;
             }
             #modal > div {
-                display: flex;
-                justify-content: center;
+                cursor: pointer;
                 width: 100vw;
                 height: 5vh;
                 color: #FFFFFF;
+                text-align: center;
             }
             #modal_img {
+                cursor: pointer;
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
@@ -134,9 +137,7 @@ function Modal(img, modal_img, preview, page) {
     audio.src = preview;
     audio.play();
     if (!modal_flag) return;
-    const modal = document.createElement("div");
-    modal.setAttribute("id", "modal");
-    modal.setAttribute("onclick", "DeleteModal();");
+    const modal = CreateModal();
     const image = document.createElement('img');
     image.setAttribute("src", modal_img);
     image.setAttribute("id", "modal_img");
@@ -144,12 +145,17 @@ function Modal(img, modal_img, preview, page) {
     document.body.appendChild(modal);
 }
 function DeleteModal() {
-    document.getElementById("modal").remove();
-    audio.pause();
+    try {
+        document.getElementById("modal").remove();
+        audio.pause();
+        return true;
+    } catch (e) {
+        return false;
+    }
 }
 function Menu() {
-    const modal = document.createElement("div");
-    modal.setAttribute("id", "modal");
+    if(DeleteModal()) return;
+    const modal = CreateModal();
     const Top = document.createElement("div");
     Top.setAttribute("onclick", "window.open('https://r-aphus.github.io/');");
     Top.innerText = "Top";
@@ -184,7 +190,14 @@ function Menu() {
     document.body.appendChild(modal);
 }
 function Region() {
+    const modal = CreateModal();
 
+}
+function CreateModal() {
+    const modal = document.createElement("div");
+    modal.setAttribute("id", "modal");
+    modal.setAttribute("onclick", "DeleteModal();");
+    return modal;
 }
         </script>
     </body>
