@@ -5,15 +5,7 @@
         <title>Umbrella!</title>
         <style type="text/css">
             html, body {
-                overflow: hidden;
                 margin: 0;
-            }
-            #result {
-                height: 93vh;
-                width: 100vw;
-                line-height: 93vh;
-                font-size: 21vw;
-                text-align: center;
             }
             #nav {
                 position: fixed;
@@ -30,26 +22,36 @@
             #nav > div, img {
                 cursor: pointer;
             }
+            #main {
+                text-align: center;
+            }
+            h1 {
+                font-size: 10vw
+            }
+            p {
+                font-size: 5vw;
+            }
         </style>
     </head>
 	<body>
-        <div id="result">
+        <div id="main">
             <div>
-                <div>About</div>
-                <div>
-                    1. adsasdfd
-                </div>
+                <h1>About</h1>
+                <p>Estimate your position by <a href="https://ipapi.co">ipapi</a></p>
+                <p>↓</p>
+                <p>Forecast the weather by <a href="https://openweathermap.org">OpenWeatherMap</a></p>
+                <p>↓</p>
+                <p>You become HAPPY!</p>
+                <br>
             </div>
             <div>
-                <div>Policy</div>
-                <div>
-                    1. dsgfdshfjdhgfh
-                </div>
+                <h1>Policy</h1>
+                <p>TBD</p>
             </div>
         </div>
         <div id="nav">
-            <div onclick="window.open('https://r-aphus.github.io');">Top</div>
-            <div onclick="window.open('https://r-aphus.github.io/umbrella/');">Back</div>
+            <div onclick="location.href='https://r-aphus.github.io';">Top</div>
+            <div onclick="location.href='https://r-aphus.github.io/umbrella/';">Back</div>
             <img id="Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fr%2daphus%2egithub%2eio%2fumbrella%2f');" src="../social/flogo-HexRBG-Wht-58.svg" style="width:3.5vh;height:3.5vh;">
             <img id="Twitter" src="../social/Twitter_Logo_WhiteOnImage.svg" style="width:5.5vh;height:5.5vh;">
         </div>
