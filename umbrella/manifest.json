@@ -6,6 +6,6 @@
     "sizes": "any",
     "type": "image/png"
   }],
-  "start_url": "https://r-aphus.github.io/umbrella/",
+  "start_url": "https://r-aphus.github.io/umbrella/?ac=pwa",
   "display": "standalone"
 }
