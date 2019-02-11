@@ -69,15 +69,16 @@
             <img id="Twitter" src="../social/Twitter_Logo_WhiteOnImage.svg" style="width:5.5vh;height:5.5vh;">
         </div>
         <script>
+            const ac = getParam("ac");
+            const tm = getParam("tm");
+            window.location.href = "https://r-aphus.github.io/umbrella/";
             fetch('https://ipapi.co/json/')
                 .then(function(response) {
                     return response.json();
                 })
                 .then(function(json) {
-//                    const appid = "d1c78d7630a66a0281cee9583cff3a71";
-//                    fetch('https://api.openweathermap.org/data/2.5/forecast' + "?lat=" + json.latitude + "&lon=" + json.longitude + "&appid=" + appid)
                     const endpoint = "https://script.google.com/macros/s/AKfycbxMlr8kJCz5iEignCYz6kwR-yLekIWgAiNcZEdLmY5m96sggz5m/exec";
-                    fetch(endpoint + "?lat=" + json.latitude + "&lon=" + json.longitude)
+                    fetch(endpoint + "?lat=" + json.latitude + "&lon=" + json.longitude + "&ac=" + + "&tm=" + )
                         .then(function(response) {
                             return response.json();
                         })
@@ -99,6 +100,14 @@
                 });
                 document.addEventListener('scroll', function(e) {e.preventDefault();}, {passive: false});
                 document.addEventListener('touchmove', function(e) {e.preventDefault();}, {passive: false});
+                function getParam(name) {
+                    name = name.replace(/[\[\]]/g, "\\$&");
+                    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                        results = regex.exec(window.location.href);
+                    if (!results) return null;
+                    if (!results[2]) return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, " "));
+                }
         </script>
     </body>
 </html>
