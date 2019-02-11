@@ -71,7 +71,7 @@
         <script>
             const ac = getParam("ac");
             const tm = getParam("tm");
-            history.relpaceState(null,null,"/umbrella/");
+            window.history.relpaceState(null, null, "/umbrella/");
             fetch('https://ipapi.co/json/')
                 .then(function(response) {
                     return response.json();
