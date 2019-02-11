@@ -1,14 +1,6 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132482862-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'UA-132482862-1');
-        </script>
         <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta property="og:title" content="Umbrella!" />
@@ -82,40 +74,26 @@
                     return response.json();
                 })
                 .then(function(json) {
-                    const appid = "d1c78d7630a66a0281cee9583cff3a71";
-                    fetch('https://api.openweathermap.org/data/2.5/forecast' + "?lat=" + json.latitude + "&lon=" + json.longitude + "&appid=" + appid)
+//                    const appid = "d1c78d7630a66a0281cee9583cff3a71";
+//                    fetch('https://api.openweathermap.org/data/2.5/forecast' + "?lat=" + json.latitude + "&lon=" + json.longitude + "&appid=" + appid)
+                    const endpoint = "https://script.google.com/macros/s/AKfycbxMlr8kJCz5iEignCYz6kwR-yLekIWgAiNcZEdLmY5m96sggz5m/exec";
+                    fetch(endpoint + "?lat=" + json.latitude + "&lon=" + json.longitude)
                         .then(function(response) {
                             return response.json();
                         })
                         .then(function(json) {
-                            let rain = 0;
-                            let snow = 0;
-                            let max_rain = 0;
-                            let max_snow = 0;
-                            const dt = (new Date()).getTime() / 1000 + 60 * 60 * 18;
-                            for (var i in json.list) {
-                                if (json.list[i].dt > dt) break;
-                                try {
-                                    rain = json.list[i].rain['3h'];
-                                    if (!isNaN(rain) && rain > max_rain) max_rain = rain;
-                                } catch(e) {}
-                                try {
-                                    snow = json.list[i].snow['3h'];
-                                    if (!isNaN(snow) && snow > max_snow) max_snow = snow;
-                                } catch(e) {}
-                            }
                             const result = document.getElementById("result");
                             result.style.color = "#FFFFFF";
-                            if (max_rain >= 0.5 * 3.0 || max_snow > 0.1) {
+                            if (json.weather == "rainy") {
                                 result.innerHTML = "<div id='top'>You have to take an</div>Umbrella!<div id='bottom'>with you today.</div>";
                                 result.style.background = "linear-gradient(to top, #1488cc, #2b32b2)";
                                 const Twitter = document.getElementById("Twitter");
-                                Twitter.setAttribute("onclick", "window.open('https://twitter.com/intent/tweet?text=You%20have%20to%20take%20an%20Umbrella%21%20with%20you%20today%2e%0d%0ahttps%3a%2f%2fr%2daphus%2egithub%2eio%2fumbrella%2f%3fac%3dtw%26tm%3d');");
-                            } else {
+                                Twitter.setAttribute("onclick", "window.open('https://twitter.com/intent/tweet?text=You%20have%20to%20take%20an%20Umbrella%21%20with%20you%20today%2e%0d%0ahttps%3a%2f%2fr%2daphus%2egithub%2eio%2fumbrella%2f%3fac%3dtw%26tm%3d" + json.timestamp + "');");
+                            } else if (json.weather == "sunny") {
                                 result.innerHTML = "<div id='top'>It's</div>Sunny!<div id='bottom'>You don't need an umbrella.</div>";
                                 result.style.background = "linear-gradient(to top, #fdc830, #f37335)";
                                 const Twitter = document.getElementById("Twitter");
-                                Twitter.setAttribute("onclick", "window.open('https://twitter.com/intent/tweet?text=It%27s%20Sunny%21%20You%20don%27t%20need%20an%20umbrella%2e%0d%0ahttps%3a%2f%2fr%2daphus%2egithub%2eio%2fumbrella%2f%3fac%3dtw%26tm%3d');");
+                                Twitter.setAttribute("onclick", "window.open('https://twitter.com/intent/tweet?text=It%27s%20Sunny%21%20You%20don%27t%20need%20an%20umbrella%2e%0d%0ahttps%3a%2f%2fr%2daphus%2egithub%2eio%2fumbrella%2f%3fac%3dtw%26tm%3d" + json.timestamp + "');");
                             }
                         })
                 });
