@@ -7,11 +7,30 @@ import javax.imageio.ImageIO;
 public class CoverPick {
 	public static void main(String[] args) {
 		try {
-            int l = 180;
+            int l = 500;
             int bright;
-            float x, y, x2, y2, r, sin2, cos4, cos2;
+            int x, y, x2, y2, x4, y4, x6, y6;
 			BufferedImage img = new BufferedImage(l, l, BufferedImage.TYPE_3BYTE_BGR);
-			Graphics g = img.getGraphics();
+            Graphics g = img.getGraphics();
+            for (int i = 0; i < l; i++) {
+                for (int j = 0; j < l; j++) {
+                    x = i - l / 2;
+                    y = j - l / 2;
+                    x2 = x * x;
+                    y2 = y * y;
+                    x4 = x2 * x2;
+                    y4 = y2 * y2;
+                    x6 = x4 * x2;
+                    y6 = y4 * y2;
+                    bright = 256 / 2;
+                    bright *= (x6 - 15 * (x4 * y2 - x2 * y4) - y6 - 2 * x * y * (3 * x2 - y2) * (x2 - 3 * y2)) / Math.pow(x2 + y2, 3) / Math.sqrt(2);
+                    bright += 256 / 2;
+                    g.setColor(new Color(bright, bright, bright));
+                    g.drawLine(i, j, i, j);
+                }
+            }
+/*
+            float x, y, x2, y2, r, sin2, cos4, cos2;
             for (int i = 0; i < l; i ++) {
                 for (int j = 0; j < l; j ++) {
                     x = l / 2.0f - i;
@@ -40,6 +59,7 @@ public class CoverPick {
                     }
                 }
             }
+*/
 			g.dispose();
 			ImageIO.write(img, "png", new File("./CoverPick.png"));
 		}catch(Exception e) {

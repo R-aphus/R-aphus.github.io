@@ -33,9 +33,19 @@
             #result {
                 height: 93vh;
                 width: 100vw;
-                line-height: 93vh;
-                font-size: 21vw;
+                line-height: 33vh;
+                font-size: 23vw;
                 text-align: center;
+            }
+            #top {
+                padding-top: 20vh;
+                font-size: 5vw;
+                line-height: 10vh;
+            }
+            #bottom {
+                padding-bottom: 20vh;
+                font-size: 5vw;
+                line-height: 20vh;
             }
             #nav {
                 position: fixed;
@@ -55,7 +65,11 @@
         </style>
 	</head>
 	<body>
-        <div id="result">calclating...</div>
+        <div id="result">
+            <div id='top'>It's under</div>
+            Loading!
+            <div id='bottom'>wait a minute.</div>
+        </div>
         <div id="nav">
             <div onclick="location.href='https://r-aphus.github.io';">Top</div>
             <div onclick="location.href='https://r-aphus.github.io/umbrella/about.html';">About</div>
@@ -93,12 +107,12 @@
                             const result = document.getElementById("result");
                             result.style.color = "#FFFFFF";
                             if (max_rain >= 0.5 * 3.0 || max_snow > 0.1) {
-                                result.innerText = "Umbrella!";
+                                result.innerHTML = "<div id='top'>You have to take an</div>Umbrella!<div id='bottom'>with you today.</div>";
                                 result.style.background = "linear-gradient(to top, #1488cc, #2b32b2)";
                                 const Twitter = document.getElementById("Twitter");
                                 Twitter.setAttribute("onclick", "window.open('https://twitter.com/intent/tweet?text=It%27s%20Rainy%21%0d%0ahttps%3a%2f%2fr%2daphus%2egithub%2eio%2fumbrella%2f');");
                             } else {
-                                result.innerText = "Sunny!";
+                                result.innerHTML = "<div id='top'>It's</div>Sunny!<div id='bottom'>you don't need an umbrella.</div>";
                                 result.style.background = "linear-gradient(to top, #fdc830, #f37335)";
                                 const Twitter = document.getElementById("Twitter");
                                 Twitter.setAttribute("onclick", "window.open('https://twitter.com/intent/tweet?text=It%27s%20Sunny%21%0d%0ahttps%3a%2f%2fr%2daphus%2egithub%2eio%2fumbrella%2f');");

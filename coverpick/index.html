@@ -78,6 +78,7 @@
         </div>
         <div id="main"></div>
         <script>
+let region = InitRegion();
 let loading = false;
 const items = [];
 const modal_items = [];
@@ -107,6 +108,25 @@ function CB(json) {
         }
     }
     AppendItems();
+}
+function InitRegion() {
+    const languages = window.navigator.languages || [
+            window.navigator.language ||
+            window.navigator.userLanguage ||
+            window.navigator.browserLanguage
+    ];
+    let splited = [];
+    languages.forEach(function(language) {
+        splited = language.split("-");
+        if (splited.length >= 2) {
+            if (splited[1]) {//match ISO code
+                
+            }
+        }
+        if (splited[0]) {//matches language and region
+
+        }
+    });
 }
 function AppendItems() {
     if (items.length < append_num) {
