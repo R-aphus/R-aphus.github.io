@@ -7,5 +7,6 @@
     "type": "image/png"
   }],
   "start_url": "https://r-aphus.github.io/umbrella/?ac=pwa",
-  "display": "standalone"
+  "display": "standalone",
+  "background_color": "#f37335"
 }
