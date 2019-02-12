@@ -25,19 +25,19 @@
             #result {
                 height: 93vh;
                 width: 100vw;
-                line-height: 33vh;
-                font-size: 23vw;
+                line-height: 23vh;
+                font-size: 14vh;
                 text-align: center;
             }
             #top {
-                padding-top: 20vh;
-                font-size: 5vw;
-                line-height: 10vh;
+                padding-top: 30vh;
+                font-size: 3vh;
+                line-height: 5vh;
             }
             #bottom {
-                padding-bottom: 20vh;
-                font-size: 5vw;
-                line-height: 20vh;
+                padding-bottom: 30vh;
+                font-size: 3vh;
+                line-height: 5vh;
             }
             #nav {
                 position: fixed;
@@ -71,6 +71,7 @@
         <script>
             const ac = getParam("ac");
             const tm = getParam("tm");
+            console.log((new Date(2019,1,1)).getTime());
             window.history.replaceState(null, null, "/umbrella/");
             fetch('https://ipapi.co/json/')
                 .then(function(response) {
