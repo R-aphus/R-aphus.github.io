@@ -180,7 +180,7 @@ function Menu() {
     Top.setAttribute("onclick", "window.open('https://r-aphus.github.io/');");
     Top.innerText = "Top";
     const About = document.createElement("div");
-    About.setAttribute("onclick", "window.open('https://r-aphus.github.io/about.html');");
+    About.setAttribute("onclick", "window.open('https://r-aphus.github.io/coverpick/about/');");
     About.innerText = "About";
     const Flag = document.createElement("div");
     if (modal_flag) {
@@ -198,15 +198,11 @@ function Menu() {
     FB.setAttribute("src", "../social/flogo-HexRBG-Wht-58.svg");
     FB.style.width = "5vh";
     FB.style.height = "5vh";
-    const Policy = document.createElement("div");
-    Policy.setAttribute("onclick", "window.open('https://r-aphus.github.io/policy.html');");
-    Policy.innerText = "Policy";
     modal.appendChild(Top);
     modal.appendChild(About);
     modal.appendChild(Flag);
     modal.appendChild(Twitter);
     modal.appendChild(FB);
-    modal.appendChild(Policy);
     document.body.appendChild(modal);
 }
 function Region() {
