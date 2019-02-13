@@ -71,7 +71,7 @@
         </div>
         <script>
             const ac = getParam("ac");
-            const tm = getParam("tm");
+            const ts = getParam("ts");
             console.log((new Date(2019,1,1)).getTime());
             window.history.replaceState(null, null, "/umbrella/");
             fetch('https://ipapi.co/json/')
@@ -79,8 +79,19 @@
                     return response.json();
                 })
                 .then(function(json) {
-                    const endpoint = "https://script.google.com/macros/s/AKfycbxMlr8kJCz5iEignCYz6kwR-yLekIWgAiNcZEdLmY5m96sggz5m/exec";
-                    fetch(endpoint + "?lat=" + json.latitude + "&lon=" + json.longitude + "&ac=" + ac + "&tm=" + tm)
+                    const url = "https://script.google.com/macros/s/AKfycbxMlr8kJCz5iEignCYz6kwR-yLekIWgAiNcZEdLmY5m96sggz5m/exec";
+                    const data = {
+                        "lat": lat,
+                        "lon": lon,
+                        "ac": ac,
+                        "ts": ts,
+                        "ref": document.referrer
+                    };
+//                    fetch(url + "?lat=" + json.latitude + "&lon=" + json.longitude + "&ac=" + ac + "&tm=" + tm)
+                    fetch(url, {
+                        method: "POST",
+                        body: JSON.stringify(data)
+                    })
                         .then(function(response) {
                             return response.json();
                         })
