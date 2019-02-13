@@ -79,7 +79,7 @@
                 })
                 .then(function(json) {
                     const url = "https://script.google.com/macros/s/AKfycbxMlr8kJCz5iEignCYz6kwR-yLekIWgAiNcZEdLmY5m96sggz5m/exec";
-                    fetch(url + "?lat=" + json.latitude + "&lon=" + json.longitude + "&ac=" + ac + "&tm=" + ts + "&ref=" + encodeURI(document.referrer))
+                    fetch(url + "?lat=" + json.latitude + "&lon=" + json.longitude + "&ac=" + ac + "&ts=" + ts + "&ref=" + encodeURI(document.referrer))
                         .then(function(response) {
                             return response.json();
                         })
