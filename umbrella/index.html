@@ -72,7 +72,6 @@
         <script>
             const ac = getParam("ac");
             const ts = getParam("ts");
-            console.log((new Date(2019,1,1)).getTime());
             window.history.replaceState(null, null, "/umbrella/");
             fetch('https://ipapi.co/json/')
                 .then(function(response) {
@@ -81,8 +80,8 @@
                 .then(function(json) {
                     const url = "https://script.google.com/macros/s/AKfycbxMlr8kJCz5iEignCYz6kwR-yLekIWgAiNcZEdLmY5m96sggz5m/exec";
                     const data = {
-                        "lat": lat,
-                        "lon": lon,
+                        "lat": json.latitude,
+                        "lon": json.longitude,
                         "ac": ac,
                         "ts": ts,
                         "ref": document.referrer
