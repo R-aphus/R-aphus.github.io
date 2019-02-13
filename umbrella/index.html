@@ -89,6 +89,8 @@
 //                    fetch(url + "?lat=" + json.latitude + "&lon=" + json.longitude + "&ac=" + ac + "&tm=" + tm)
                     fetch(url, {
                         method: "POST",
+                        mode: "cors",
+                        cache: "no-cache",
                         body: JSON.stringify(data)
                     })
                         .then(function(response) {
