@@ -67,7 +67,7 @@
         <div id="nav">
             <div onclick="location.href='https://r-aphus.github.io/';">Top</div>
             <div onclick="location.href='https://r-aphus.github.io/umbrella/about/';">About</div>
-            <img id="Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fr%2daphus%2egithub%2eio%2fumbrella%2f');" src="../social/flogo-HexRBG-Wht-58.svg" style="width:3.5vh;height:3.5vh;">
+            <img id="Facebook" src="../social/flogo-HexRBG-Wht-58.svg" style="width:3.5vh;height:3.5vh;">
             <img id="Twitter" src="../social/Twitter_Logo_WhiteOnImage.svg" style="width:5.5vh;height:5.5vh;">
         </div>
         <script>
@@ -98,6 +98,8 @@
                                 const Twitter = document.getElementById("Twitter");
                                 Twitter.setAttribute("onclick", "window.open('https://twitter.com/intent/tweet?text=It%27s%20Sunny%21%20You%20don%27t%20need%20an%20umbrella%2e%0d%0ahttps%3a%2f%2fr%2daphus%2egithub%2eio%2fumbrella%2f%3fac%3dtw%26ts%3d" + json.timestamp + "');");
                             }
+                            const Facebook = document.getElementById("Facebook");
+                            Facebook.setAttribute("onclick", "window.open('window.open('https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fr%2daphus%2egithub%2eio%2fumbrella%2f%3fac%3dtw%26ts%3d" + json.timestamp + "');");
                             window.history.replaceState(null, null, "/umbrella/?ts=" + json.timestamp);
                         })
                 });
